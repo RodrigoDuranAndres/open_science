@@ -1,0 +1,2514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main" coord="1,195.66,58.42,203.90,12.90">Adversarial Diffusion Distillation</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+				<date type="published" when="2023-11-28">28 Nov 2023</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName coords="1,99.12,98.39,53.27,10.37"><forename type="first">Axel</forename><surname>Sauer</surname></persName>
+						</author>
+						<author>
+							<persName coords="1,183.62,98.39,79.36,10.37"><forename type="first">Dominik</forename><surname>Lorenz</surname></persName>
+						</author>
+						<author>
+							<persName coords="1,294.20,98.39,92.64,10.37"><forename type="first">Andreas</forename><surname>Blattmann</surname></persName>
+						</author>
+						<author>
+							<persName coords="1,418.06,98.39,78.04,10.37"><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+						</author>
+						<title level="a" type="main" coord="1,195.66,58.42,203.90,12.90">Adversarial Diffusion Distillation</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2023-11-28">28 Nov 2023</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">E03A38AD9FFB8872D3D3A4D9D92479E8</idno>
+					<idno type="arXiv">arXiv:2311.17042v1[cs.CV]</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-02-11T17:57+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract xml:lang="tl">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stability AI</head></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<facsimile>
+		<surface n="1" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="2" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="3" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="4" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="5" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="6" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="7" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="8" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="9" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="10" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="11" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="12" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="13" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="14" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="15" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="16" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+	</facsimile>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>Diffusion models (DMs) <ref type="bibr" coords="1,412.83,525.19,15.89,8.64" target="#b19">[20,</ref><ref type="bibr" coords="1,431.65,525.19,12.50,8.64" target="#b62">63,</ref><ref type="bibr" coords="1,447.10,525.19,13.35,8.64" target="#b64">65]</ref> have taken a central role in the field of generative modeling and have recently enabled remarkable advances in high-quality image- <ref type="bibr" coords="1,504.59,549.10,10.68,8.64" target="#b2">[3,</ref><ref type="bibr" coords="1,517.38,549.10,12.40,8.64" target="#b52">53,</ref><ref type="bibr" coords="1,531.90,549.10,13.21,8.64" target="#b53">54]</ref> and video- <ref type="bibr" coords="1,353.13,561.05,10.71,8.64" target="#b3">[4,</ref><ref type="bibr" coords="1,366.32,561.05,12.42,8.64">12,</ref><ref type="bibr" coords="1,381.23,561.05,13.23,8.64">21]</ref> synthesis. One of the key strengths of DMs is their scalability and iterative nature, which allows them to handle complex tasks such as image synthesis from free-form text prompts. However, the iterative inference process in DMs requires a significant number of sampling steps, which currently hinders their real-time application. Generative Adversarial Networks (GANs) [14, <ref type="bibr" coords="1,501.33,632.78,12.50,8.64" target="#b25">26,</ref><ref type="bibr" coords="1,516.44,632.78,11.91,8.64" target="#b26">27]</ref>, on the other hand, are characterized by their single-step formulation and inherent speed. But despite attempts to scale to large datasets <ref type="bibr" coords="1,374.32,668.65,16.02,8.64" target="#b24">[25,</ref><ref type="bibr" coords="1,393.03,668.65,11.92,8.64">58]</ref>, GANs often fall short of DMs in terms of sample quality. The aim of this work is to combine the superior sample quality of DMs with the inherent speed of GANs.</p><p>Our approach is conceptually simple: We propose Adversarial Diffusion Distillation (ADD), a general approach that reduces the number of inference steps of a pre-trained diffusion model to 1-4 sampling steps while maintaining high sampling fidelity and potentially further improving the overall performance of the model. To this end, we introduce a combination of two training objectives: (i) an adversarial loss and (ii) a distillation loss that corresponds to score distillation sampling (SDS) <ref type="bibr" coords="2,204.98,171.12,15.42,8.64" target="#b50">[51]</ref>. The adversarial loss forces the model to directly generate samples that lie on the manifold of real images at each forward pass, avoiding blurriness and other artifacts typically observed in other distillation methods <ref type="bibr" coords="2,158.90,218.94,15.42,8.64">[43]</ref>. The distillation loss uses another pretrained (and fixed) DM as a teacher to effectively utilize the extensive knowledge of the pretrained DM and preserve the strong compositionality observed in large DMs. During inference, our approach does not use classifier-free guidance <ref type="bibr" coords="2,89.08,278.72,15.37,8.64" target="#b18">[19]</ref>, further reducing memory requirements. We retain the model's ability to improve results through iterative refinement, which is an advantage over previous one-step GAN-based approaches <ref type="bibr" coords="2,147.49,314.58,15.27,8.64" target="#b58">[59]</ref>.</p><p>Our contributions can be summarized as follows: • We introduce ADD, a method for turning pretrained diffusion models into high-fidelity, real-time image generators using only 1-4 sampling steps. • Our method uses a novel combination of adversarial training and score distillation, for which we carefully ablate several design choices. • ADD significantly outperforms strong baselines such as LCM, LCM-XL <ref type="bibr" coords="2,127.61,422.31,16.73,8.64" target="#b37">[38]</ref> and single-step GANs <ref type="bibr" coords="2,240.05,422.31,15.42,8.64" target="#b58">[59]</ref>, and is able to handle complex image compositions while maintaining high image realism at only a single inference step. • Using four sampling steps, ADD-XL outperforms its teacher model SDXL-Base at a resolution of 512 2 px.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Background</head><p>While diffusion models achieve remarkable performance in synthesizing and editing high-resolution images <ref type="bibr" coords="2,244.79,525.19,10.83,8.64" target="#b2">[3,</ref><ref type="bibr" coords="2,258.10,525.19,12.47,8.64" target="#b52">53,</ref><ref type="bibr" coords="2,273.06,525.19,13.30,8.64" target="#b53">54]</ref> and videos <ref type="bibr" coords="2,94.51,537.14,10.67,8.64" target="#b3">[4,</ref><ref type="bibr" coords="2,107.58,537.14,11.74,8.64">21]</ref>, their iterative nature hinders real-time application. Latent diffusion models <ref type="bibr" coords="2,187.32,549.10,16.56,8.64" target="#b53">[54]</ref> attempt to solve this problem by representing images in a more computationally feasible latent space <ref type="bibr" coords="2,133.83,573.01,15.36,8.64" target="#b10">[11]</ref>, but they still rely on the iterative application of large models with billions of parameters. In addition to utilizing faster samplers for diffusion models [8, <ref type="bibr" coords="2,63.13,608.87,12.40,8.64" target="#b36">37,</ref><ref type="bibr" coords="2,77.87,608.87,12.40,8.64">64,</ref><ref type="bibr" coords="2,92.61,608.87,11.74,8.64" target="#b73">74]</ref>, there is a growing body of research on model distillation such as progressive distillation <ref type="bibr" coords="2,215.91,620.83,16.46,8.64" target="#b55">[56]</ref> and guidance distillation <ref type="bibr" coords="2,96.81,632.78,15.42,8.64">[43]</ref>. These approaches reduce the number of iterative sampling steps to 4-8, but may significantly lower the original performance. Furthermore, they require an iterative training process. Consistency models <ref type="bibr" coords="2,236.33,668.65,16.73,8.64" target="#b5">[66]</ref> address the latter issue by enforcing a consistency regularization on the ODE trajectory and demonstrate strong performance for pixel-based models in the few-shot setting. LCMs <ref type="bibr" coords="2,246.51,704.51,16.46,8.64" target="#b37">[38]</ref> focus on distilling latent diffusion models and achieve impressive performance at 4 sampling steps. Recently, LCM-LoRA [40] introduced a low-rank adaptation <ref type="bibr" coords="2,440.49,426.55,16.47,8.64" target="#b21">[22]</ref> training for efficiently learning LCM modules, which can be plugged into different checkpoints for SD and SDXL <ref type="bibr" coords="2,448.98,450.46,15.80,8.64" target="#b49">[50,</ref><ref type="bibr" coords="2,467.28,450.46,11.85,8.64" target="#b53">54]</ref>. InstaFlow <ref type="bibr" coords="2,528.48,450.46,16.63,8.64" target="#b35">[36]</ref> propose to use Rectified Flows <ref type="bibr" coords="2,442.53,462.42,16.73,8.64" target="#b34">[35]</ref> to facilitate a better distillation process. All of these methods share common flaws: samples synthesized in four steps often look blurry and exhibit noticeable artifacts. At fewer sampling steps, this problem is further amplified. GANs [14] can also be trained as standalone singlestep models for text-to-image synthesis <ref type="bibr" coords="2,466.63,535.64,15.73,8.64" target="#b24">[25,</ref><ref type="bibr" coords="2,484.85,535.64,11.79,8.64" target="#b58">59]</ref>. Their sampling speed is impressive, yet the performance lags behind diffusion-based models. In part, this can be attributed to the finely balanced GAN-specific architectures necessary for stable training of the adversarial objective. Scaling these models and integrating advances in neural network architectures without disturbing the balance is notoriously challenging. Additionally, current state-of-the-art text-to-image GANs do not have a method like classifier-free guidance available which is crucial for DMs at scale. Score Distillation Sampling <ref type="bibr" coords="2,439.09,656.69,16.73,8.64" target="#b50">[51]</ref> also known as Score Jacobian Chaining <ref type="bibr" coords="2,386.46,668.65,16.73,8.64" target="#b67">[68]</ref> is a recently proposed method that has been developed to distill the knowledge of foundational T2I Models into 3D synthesis models. While the majority of SDS-based works <ref type="bibr" coords="2,381.33,704.51,15.69,8.64" target="#b44">[45,</ref><ref type="bibr" coords="2,399.51,704.51,12.42,8.64" target="#b50">51,</ref><ref type="bibr" coords="2,414.42,704.51,12.42,8.64" target="#b67">68,</ref><ref type="bibr" coords="2,429.32,704.51,13.23,8.64" target="#b68">69]</ref> use SDS in the context of A cinematic shot of a professor sloth wearing a tuxedo at a BBQ party.</p><p>A high-quality photo of a confused bear in calculus class. The bear is wearing a party hat and steampunk armor. per-scene optimization for 3D objects, the approach has also been applied to text-to-3D-video-synthesis <ref type="bibr" coords="3,226.61,577.96,16.73,8.64" target="#b61">[62]</ref> and in the context of image editing <ref type="bibr" coords="3,149.58,589.91,15.27,8.64" target="#b15">[16]</ref>.</p><p>Recently, the authors of <ref type="bibr" coords="3,155.87,605.37,16.47,8.64" target="#b12">[13]</ref> have shown a strong relationship between score-based models and GANs and propose Score GANs, which are trained using score-based diffusion flows from a DM instead of a discriminator. Similarly, Diff-Instruct [42], a method which generalizes SDS, enables to distill a pretrained diffusion model into a generator without discriminator.</p><p>Conversely, there are also approaches which aim to improve the diffusion process using adversarial training. For faster sampling, Denoising Diffusion GANs [70] are introduced as a method to enable sampling with few steps. To improve quality, a discriminator loss is added to the score matching objective in Adversarial Score Matching <ref type="bibr" coords="3,511.66,601.87,16.59,8.64" target="#b23">[24]</ref> and the consistency objective of CTM <ref type="bibr" coords="3,445.84,613.82,15.27,8.64">[29]</ref>.</p><p>Our method combines adversarial training and score distillation in a hybrid objective to address the issues in current top performing few-step generative models.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Method</head><p>Our goal is to generate high-fidelity samples in as few sampling steps as possible, while matching the quality of state-"A brain riding a rocketship heading towards the moon."</p><p>"A bald eagle made of chocolate powder, mango, and whipped cream" "A blue colored dog." of-the-art models <ref type="bibr" coords="4,125.27,313.58,10.90,8.64" target="#b6">[7,</ref><ref type="bibr" coords="4,139.89,313.58,12.50,8.64" target="#b49">50,</ref><ref type="bibr" coords="4,156.10,313.58,12.50,8.64" target="#b52">53,</ref><ref type="bibr" coords="4,172.32,313.58,11.92,8.64" target="#b54">55]</ref>. The adversarial objective [14, 60] naturally lends itself to fast generation as it trains a model that outputs samples on the image manifold in a single forward step. However, attempts at scaling GANs to large datasets <ref type="bibr" coords="4,106.92,361.40,15.84,8.64">[58,</ref><ref type="bibr" coords="4,125.24,361.40,13.32,8.64" target="#b58">59]</ref> observed that is critical to not solely rely on the discriminator, but also employ a pretrained classifier or CLIP network for improving text alignment. As remarked in <ref type="bibr" coords="4,101.72,397.26,15.42,8.64" target="#b58">[59]</ref>, overly utilizing discriminative networks introduces artifacts and image quality suffers. Instead, we utilize the gradient of a pretrained diffusion model via a score distillation objective to improve text alignment and sample quality. Furthermore, instead of training from scratch, we initialize our model with pretrained diffusion model weights; pretraining the generator network is known to significantly improve training with an adversarial loss <ref type="bibr" coords="4,221.91,480.95,15.42,8.64" target="#b14">[15]</ref>. Lastly, instead of utilizing a decoder-only architecture used for GAN training <ref type="bibr" coords="4,82.80,504.86,15.65,8.64" target="#b25">[26,</ref><ref type="bibr" coords="4,100.76,504.86,11.74,8.64" target="#b26">27]</ref>, we adapt a standard diffusion model framework. This setup naturally enables iterative refinement.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1.">Training Procedure</head><p>Our training procedure is outlined in Fig. <ref type="figure" coords="4,209.75,561.05,4.88,8.64" target="#fig_0">2</ref> and involves three networks: The ADD-student is initialized from a pretrained UNet-DM with weights θ, a discriminator with trainable weights ϕ, and a DM teacher with frozen weights ψ. During training, the ADD-student generates samples xθ (x s , s) from noisy data x s . The noised data points are produced from a dataset of real images x 0 via a forward diffusion process x s = α s x 0 + σ s ϵ. In our experiments, we use the same coefficients α s and σ s as the student DM and sample s uniformly from a set T student = {τ 1 , ..., τ n } of N chosen student timesteps. In practice, we choose N = 4. Importantly, we set τ n = 1000 and enforce zero-terminal SNR <ref type="bibr" coords="4,72.32,704.51,16.72,8.64">[33]</ref> during training, as the model needs to start from pure noise during inference.</p><p>For the adversarial objective, the generated samples xθ and real images x 0 are passed to the discriminator which aims to distinguish between them. The design of the discriminator and the adversarial loss are described in detail in Sec. 3.2. To distill knowledge from the DM teacher, we diffuse student samples xθ with the teacher's forward process to xθ,t , and use the teacher's denoising prediction xψ (x θ,t , t) as a reconstruction target for the distillation loss L distill , see Section 3.3. Thus, the overall objective is</p><formula xml:id="formula_0" coords="4,323.49,440.04,222.29,12.69">L = L G adv (x θ (x s , s), ϕ) + λL distill (x θ (x s , s), ψ)<label>(1)</label></formula><p>While we formulate our method in pixel space, it is straightforward to adapt it to LDMs operating in latent space. When using LDMs with a shared latent space for teacher and student, the distillation loss can be computed in pixel or latent space. We compute the distillation loss in pixel space as this yields more stable gradients when distilling latent diffusion model <ref type="bibr" coords="4,374.48,535.41,15.27,8.64" target="#b71">[72]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.">Adversarial Loss</head><p>For the discriminator, we follow the proposed design and training procedure in <ref type="bibr" coords="4,395.39,584.96,16.64,8.64" target="#b58">[59]</ref> which we briefly summarize; for details, we refer the reader to the original work. We use a frozen pretrained feature network F and a set of trainable lightweight discriminator heads D ϕ,k . For the feature network F , Sauer et al. <ref type="bibr" coords="4,390.23,632.78,16.50,8.64" target="#b58">[59]</ref> find vision transformers (ViTs) <ref type="bibr" coords="4,533.59,632.78,11.52,8.64">[9]</ref> to work well, and we ablate different choice for the ViTs objective and model size in Section 4. The trainable discriminator heads are applied on features F k at different layers of the feature network.</p><p>To improve performance, the discriminator can be conditioned on additional information via projection <ref type="bibr" coords="4,501.31,704.51,15.40,8.64">[46]</ref>. Com- monly, a text embedding c text is used in the text-to-image setting. But, in contrast to standard GAN training, our training configuration also allows to condition on a given image. For τ &lt; 1000, the ADD-student receives some signal from the input image x 0 . Therefore, for a given generated sample xθ (x s , s), we can condition the discriminator on information from x 0 . This encourages the ADD-student to utilize the input effectively. In practice, we use an additional feature network to extract an image embedding c img .</p><p>Following <ref type="bibr" coords="5,107.16,393.69,15.89,8.64" target="#b56">[57,</ref><ref type="bibr" coords="5,126.74,393.69,11.92,8.64" target="#b58">59]</ref>, we use the hinge loss <ref type="bibr" coords="5,241.34,393.69,16.73,8.64" target="#b31">[32]</ref> as the adversarial objective function. Thus the ADD-student's adversarial objective L adv (x θ (x s , s), ϕ) amounts to</p><formula xml:id="formula_1" coords="5,76.53,436.40,210.50,41.24">L G adv (x θ (x s , s), ϕ) = -E s,ϵ,x0 k D ϕ,k (F k (x θ (x s , s))) ,<label>(2)</label></formula><p>whereas the discriminator is trained to minimize</p><formula xml:id="formula_2" coords="5,60.00,503.86,227.03,80.82">L D adv (x θ (x s , s), ϕ) = E x0 k max(0, 1 -D ϕ,k (F k (x 0 ))) + γR1(ϕ) + E xθ k max(0, 1 + D ϕ,k (F k (x θ ))) ,<label>(3)</label></formula><p>where R1 denotes the R1 gradient penalty <ref type="bibr" coords="5,232.91,596.26,15.41,8.64" target="#b43">[44]</ref>. Rather than computing the gradient penalty with respect to the pixel values, we compute it on the input of each discriminator head D ϕ,k . We find that the R1 penalty is particularly beneficial when training at output resolutions larger than 128 2 px.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3.">Score Distillation Loss</head><p>The distillation loss in Eq. ( <ref type="formula" coords="5,161.06,681.48,3.87,8.64" target="#formula_0">1</ref>) is formulated as</p><formula xml:id="formula_3" coords="5,80.89,701.51,206.14,25.69">L distill (x θ (x s , s), ψ) = E t,ϵ ′ c(t)d(x θ , xψ (sg(x θ,t ); t)) ,<label>(4)</label></formula><p>where sg denotes the stop-gradient operation. Intuitively, the loss uses a distance metric d to measure the mismatch between generated samples x θ by the ADD-student and the DM-teacher's outputs xψ (x θ,t , t) = (x θ,tσ t εψ (x θ,t , t))/α t averaged over timesteps t and noise ϵ ′ . Notably, the teacher is not directly applied on generations xθ of the ADD-student but instead on diffused outputs xθ,t = α t xθ + σ t ϵ ′ , as non-diffused inputs would be out-ofdistribution for the teacher model <ref type="bibr" coords="5,444.52,381.73,15.27,8.64" target="#b67">[68]</ref>.</p><p>In the following, we define the distance function d(x, y) := ||x -y|| 2  2 . Regarding the weighting function c(t), we consider two options: exponential weighting, where c(t) = α t (higher noise levels contribute less), and score distillation sampling (SDS) weighting <ref type="bibr" coords="5,452.07,442.34,15.32,8.64" target="#b50">[51]</ref>. In the supplementary material, we demonstrate that with d(x, y) = ||x -y|| 2 2 and a specific choice for c(t), our distillation loss becomes equivalent to the SDS objective L SDS , as proposed in <ref type="bibr" coords="5,527.58,478.20,15.42,8.64" target="#b50">[51]</ref>. The advantage of our formulation is its ability to enable direct visualization of the reconstruction targets and that it naturally facilitates the execution of several consecutive denoising steps. Lastly, we also evaluate noise-free score distillation (NFSD) objective, a recently proposed variant of SDS <ref type="bibr" coords="5,329.62,549.94,15.27,8.64" target="#b27">[28]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Experiments</head><p>For our experiments, we train two models of different capacities, ADD-M (860M parameters) and ADD-XL (3.1B parameters). For ablating ADD-M, we use a Stable Diffusion (SD) 2.1 backbone <ref type="bibr" coords="5,419.68,631.95,15.42,8.64" target="#b53">[54]</ref>, and for fair comparisons with other baselines, we use SD1.5. ADD-XL utilizes a SDXL <ref type="bibr" coords="5,338.93,655.87,16.73,8.64" target="#b49">[50]</ref> backbone. All experiments are conducted at a standardized resolution of 512x512 pixels; outputs from models generating higher resolutions are down-sampled to this size.</p><p>We employ a distillation weighting factor of λ = 2.5 across all experiments. Additionally, the R1 penalty strength γ is set to 10 -<ref type="foot" coords="6,110.69,300.11,5.10,6.12" target="#foot_4">5</ref> . For discriminator conditioning, we use a pretrained CLIP-ViT-g-14 text encoder <ref type="bibr" coords="6,220.41,313.96,16.73,8.64" target="#b51">[52]</ref> to compute text embeddings c text and the CLS embedding of a DINOv2 ViT-L encoder [47] for image embeddings c img . For the baselines, we use the best publicly available models: Latent diffusion models <ref type="bibr" coords="6,139.61,361.78,15.88,8.64" target="#b49">[50,</ref><ref type="bibr" coords="6,158.31,361.78,13.35,8.64" target="#b53">54]</ref> (SD1.5<ref type="foot" coords="6,203.55,360.11,3.49,6.05" target="#foot_0">1</ref> , SDXL<ref type="foot" coords="6,239.50,360.11,3.49,6.05" target="#foot_1">2</ref> ) cascaded pixel diffusion models <ref type="bibr" coords="6,138.66,373.73,16.47,8.64" target="#b54">[55]</ref> (IF-XL<ref type="foot" coords="6,185.30,372.06,3.49,6.05" target="#foot_2">3</ref> ), distilled diffusion models <ref type="bibr" coords="6,65.00,385.69,15.88,8.64" target="#b38">[39,</ref><ref type="bibr" coords="6,84.48,385.69,13.35,8.64" target="#b40">41]</ref> (LCM-1.5, LCM-1.5-XL<ref type="foot" coords="6,204.35,384.02,3.49,6.05" target="#foot_3">4</ref> ), and OpenMUSE 5 <ref type="bibr" coords="6,58.25,397.64,15.42,8.64">[48]</ref>, a reimplementation of MUSE [6], a transformer model specifically developed for fast inference. Note that we compare to the SDXL-Base-1.0 model without its additional refiner model; this is to ensure a fair comparison. As there are no public state-of-the-art GAN models, we retrain StyleGAN-T <ref type="bibr" coords="6,105.97,457.42,16.73,8.64" target="#b58">[59]</ref> with our improved discriminator. This baseline (StyleGAN-T++) significantly outperforms the previous best GANs in FID and CS, see supplementary. We quantify sample quality via FID <ref type="bibr" coords="6,179.16,493.28,16.56,8.64" target="#b17">[18]</ref> and text alignment via CLIP score <ref type="bibr" coords="6,99.20,505.24,15.41,8.64">[17]</ref>. For CLIP score, we use ViT-g-14 model trained on LAION-2B <ref type="bibr" coords="6,142.37,517.19,15.31,8.64" target="#b60">[61]</ref>. Both metrics are evaluated on 5k samples from COCO2017 <ref type="bibr" coords="6,169.11,529.15,15.27,8.64" target="#b33">[34]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.">Ablation Study</head><p>Our training setup opens up a number of design spaces regarding the adversarial loss, distillation loss, initialization, and loss interplay. We conduct an ablation study on several choices in Table <ref type="table" coords="6,117.53,604.29,3.90,8.64" target="#tab_0">1</ref>; key insights are highlighted below each table. We will discuss each experiment in the following.</p><p>Discriminator feature networks. (Table <ref type="table" coords="6,235.61,634.22,7.76,8.64" target="#tab_0">1a</ref>). Recent insights by Stein et al. <ref type="bibr" coords="6,137.67,646.17,16.47,8.64" target="#b66">[67]</ref> suggest that ViTs trained with the CLIP <ref type="bibr" coords="6,74.36,658.13,16.65,8.64" target="#b51">[52]</ref> or DINO <ref type="bibr" coords="6,131.93,658.13,10.83,8.64" target="#b4">[5,</ref><ref type="bibr" coords="6,145.25,658.13,13.31,8.64">47]</ref> objectives are particularly well-suited for evaluating the performance of generative models.</p><p>Similarly, these models also seem effective as discriminator feature networks, with DINOv2 emerging as the best choice.</p><p>Discriminator conditioning. (Table <ref type="table" coords="6,463.45,348.50,8.04,8.64" target="#tab_0">1b</ref>). Similar to prior studies, we observe that text conditioning of the discriminator enhances results. Notably, image conditioning outperforms text conditioning, and the combination of both c text and c img yields the best results.</p><p>Student pretraining. (Table <ref type="table" coords="6,429.16,418.91,7.60,8.64" target="#tab_0">1c</ref>). Our experiments demonstrate the importance of pretraining the ADD-student. Being able to use pretrained generators is a significant advantage over pure GAN approaches. A problem of GANs is the lack of scalability; both Sauer et al. <ref type="bibr" coords="6,440.95,466.73,16.73,8.64" target="#b58">[59]</ref> and Kang et al. <ref type="bibr" coords="6,528.38,466.73,16.73,8.64" target="#b24">[25]</ref> observe a saturation of performance after a certain network capacity is reached. This observation contrasts the generally smooth scaling laws of DMs <ref type="bibr" coords="6,428.85,502.60,15.42,8.64" target="#b48">[49]</ref>. However, ADD can effectively leverage larger pretrained DMs (see Table <ref type="table" coords="6,515.49,514.55,8.49,8.64" target="#tab_0">1c</ref>) and benefit from stable DM pretraining.</p><p>Loss terms. (Table <ref type="table" coords="6,391.26,549.10,7.87,8.64" target="#tab_0">1d</ref>). We find that both losses are essential. The distillation loss on its own is not effective, but when combined with the adversarial loss, there is a noticeable improvement in results. Different weighting schedules lead to different behaviours, the exponential schedule tends to yield more diverse samples, as indicated by lower FID, SDS and NFSD schedules improve quality and text alignment. While we use the exponential schedule as the default setting in all other ablations, we opt for the NFSD weighting for training our final model. Choosing an optimal weighting function presents an opportunity for improvement. Alternatively, scheduling the distillation weights over training, as explored in the 3D generative modeling literature [23] could be considered.</p><p>Figure <ref type="figure" coords="7,76.10,231.08,3.41,7.77">6</ref>. User preference study (multiple steps). We compare the performance of ADD-XL (4-step) against established baselines. Our ADD-XL model outperforms all models, including its teacher SDXL 1.0 (base, no refiner) <ref type="bibr" coords="7,372.11,242.04,13.66,7.77" target="#b49">[50]</ref>, in human preference for both image quality and prompt alignment. Teacher type. (Table <ref type="table" coords="7,145.12,474.81,7.76,8.64" target="#tab_0">1e</ref>). Interestingly, a bigger student and teacher does not necessarily result in better FID and CS. Rather, the student adopts the teachers characteristics. SDXL obtains generally higher FID, possibly because of its less diverse output, yet it exhibits higher image quality and text alignment <ref type="bibr" coords="7,109.74,534.59,15.27,8.64" target="#b49">[50]</ref>.</p><p>Teacher steps. (Table <ref type="table" coords="7,155.83,553.58,7.19,8.64" target="#tab_0">1f</ref>). While our distillation loss formulation allows taking several consecutive steps with the teacher by construction, we find that several steps do not conclusively result in better performance.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.">Quantitative Comparison to State-of-the-Art</head><p>For our main comparison with other approaches, we refrain from using automated metrics, as user preference studies are more reliable <ref type="bibr" coords="7,121.92,656.69,15.42,8.64" target="#b49">[50]</ref>. In the study, we aim to assess both prompt adherence and the overall image. As a performance measure, we compute win percentages for pairwise comparisons and ELO scores when comparing several approaches. For the reported ELO scores we calculate the mean scores  <ref type="figure" coords="7,334.08,442.32,4.39,7.77">6</ref> in combination with the inference speeds of the respective models. The speeds are calculated for generating a single sample at resolution 512x512 on an A100 in mixed precision.</p><p>between both prompt following and image quality. Details on the ELO score computation and the study parameters are listed in the supplementary material.</p><p>Fig. <ref type="figure" coords="7,339.28,533.71,5.04,8.64" target="#fig_3">5</ref> and Fig. <ref type="figure" coords="7,382.30,533.71,5.04,8.64">6</ref> present the study results. The most important results are: First, ADD-XL outperforms LCM-XL (4 steps) with a single step. Second, ADD-XL can beat SDXL (50 steps) with four steps in the majority of comparisons. This makes ADD-XL the state-of-the-art in both the single and the multiple steps setting. Fig. <ref type="figure" coords="7,449.04,593.49,4.99,8.64" target="#fig_4">7</ref> visualizes ELO scores relative to inference speed. Lastly, Table <ref type="table" coords="7,481.61,605.44,5.08,8.64" target="#tab_1">2</ref> compares different few-step sampling and distillation methods using the same base model. ADD outperforms all other approaches including the standard DPM solver with eight steps.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.">Qualitative Results</head><p>To complement our quantitative studies above, we present qualitative results in this section. To paint a more complete picture, we provide additional samples and qualitative com- </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Discussion</head><p>This work introduces Adversarial Diffusion Distillation, a general method for distilling a pretrained diffusion model into a fast, few-step image generation model. We combine an adversarial and a score distillation objective to distill the public Stable Diffusion <ref type="bibr" coords="8,146.56,656.69,16.69,8.64" target="#b53">[54]</ref> and SDXL <ref type="bibr" coords="8,211.68,656.69,16.69,8.64" target="#b49">[50]</ref> models, leveraging both real data through the discriminator and structural understanding through the diffusion teacher. Our approach performs particularly well in the ultra-fast sampling regime of one or two steps, and our analyses demonstrate that it outperforms all concurrent methods in this regime. Furthermore, we retain the ability to refine samples using multiple steps. In fact, using four sampling steps, our model outperforms widely used multi-step generators such as SDXL, IF, and OpenMUSE.</p><p>Our model enables the generation of high quality images in a single-step, opening up new possibilities for real-time generation with foundation models. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B.1. Experimental Setup</head><p>Given all models for one particular study (e.g. ADD-XL, OpenMUSE<ref type="foot" coords="13,341.38,281.12,3.49,6.05" target="#foot_5">6</ref> , IF-XL <ref type="foot" coords="13,377.21,281.12,3.49,6.05" target="#foot_6">7</ref> , SDXL <ref type="bibr" coords="13,416.94,282.79,16.73,8.64" target="#b49">[50]</ref> and LCM-XL<ref type="foot" coords="13,493.97,281.12,3.49,6.05" target="#foot_7">8</ref>  <ref type="bibr" coords="13,501.30,282.79,15.89,8.64" target="#b37">[38,</ref><ref type="bibr" coords="13,520.52,282.79,13.35,8.64">40]</ref> in Figure <ref type="figure" coords="13,78.62,294.75,4.15,8.64" target="#fig_4">7</ref>) we compare each prompt for each pair of models (1v1). For every comparison, we collect an average of four votes per task from different annotators, for both visual quality and prompt following. Human evaluators, recruited from the platform Prolific<ref type="foot" coords="13,79.09,316.99,3.49,6.05" target="#foot_8">9</ref> with English as their first language, are shown two images from different models based on the same text prompt. To prevent biases, evaluators are restricted from participating in more than one of our studies. For the prompt following task, we display the text prompt above the two images and ask, "Which image looks more representative of the text shown above and faithfully follows it?" For the visual quality assessment, we do not show the prompt and instead ask, "Which image is of higher quality and aesthetically more pleasing?". Performing a complete assessment between all pair-wise comparisons gives us robust and reliable signals on model performance trends and the effect of varying thresholds. The order of prompts and the order between models are fully randomized. Frequent attention checks are in place to ensure data quality.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B.2. ELO Score Calculation</head><p>To calculate rankings when comparing more than two models based on 1v1 comparisons we use ELO Scores (higher-isbetter) <ref type="bibr" coords="13,78.26,441.88,16.51,8.64" target="#b9">[10]</ref> which were originally proposed as a scoring method for chess players but have more recently also been applied to compare instruction-tuned generative LLMs <ref type="bibr" coords="13,229.79,453.83,10.84,8.64" target="#b0">[1,</ref><ref type="bibr" coords="13,243.12,453.83,7.22,8.64" target="#b1">2]</ref>. For a set of competing players with initial ratings R init participating in a series of zero-sum games the ELO rating system updates the ratings of the two players involved in a particular game based on the expected and and actual outcome of that game. Before the game with two players with ratings R 1 and R 2 , the expected outcome for the two players are calculated as</p><formula xml:id="formula_4" coords="13,254.93,509.75,290.85,25.00">E 1 = 1 1 + 10 R 2 -R 1 400 ,<label>(6)</label></formula><formula xml:id="formula_5" coords="13,254.93,537.25,290.85,25.00">E 2 = 1 1 + 10 R 1 -R 2 400 .<label>(7)</label></formula><p>After observing the result of the game, the ratings R i are updated via the rule</p><formula xml:id="formula_6" coords="13,217.80,593.07,327.98,14.34">R ′ i = R i + K • (S i -E i ) , i ∈ {1, 2}<label>(8)</label></formula><p>where S i indicates the outcome of the match for player i. In our case we have S i = 1 if player i wins and S i = 0 if player i looses. The constant K can be see as weight putting emphasis on more recent games. We choose K = 1 and bootstrap the final ELO ranking for a given series of comparisons based on 1000 individual ELO ranking calculations with randomly shuffled order. Before comparing the models we choose the start rating for every model as R init = 1000.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>C. GAN Baselines Comparison</head><p>For training our state-of-the-art GAN baseline StyleGAN-T++, we follow the training procedure outlined in <ref type="bibr" coords="14,484.75,94.41,15.32,8.64" target="#b58">[59]</ref>. The main differences are extended training (∼2M iterations with a batch size of 2048, which is comparable to GigaGAN's schedule <ref type="bibr" coords="14,524.20,106.36,14.77,8.64" target="#b24">[25]</ref>), the improved discriminator architecture proposed in Section 3.2, and R1 penalty applied at each discriminator head. Fig. <ref type="figure" coords="14,81.27,130.27,10.16,8.64" target="#fig_7">11</ref> shows that StyleGAN-T++ outperforms the previous best GANs by achieving a comparable zero-shot FID to GigaGAN at a significantly higher CLIP score. Here, we do not compare to DMs, as comparisons between model classes via automatic metrics tend to be less informative <ref type="bibr" coords="14,233.01,154.18,15.34,8.64" target="#b66">[67]</ref>. As an example, GigaGAN achieves FID and CLIP scores comparable to SD1.5, but its sample quality is still inferior, as noted by the authors.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>D. Additional Samples</head><p>We show additional one-step samples as in Figure <ref type="figure" coords="15,251.44,94.41,4.99,8.64">1</ref> in Figure <ref type="figure" coords="15,297.71,94.41,8.32,8.64" target="#fig_8">12</ref>. An additional qualitative comparison as in Figure <ref type="figure" coords="15,513.24,94.41,4.99,8.64" target="#fig_2">4</ref> which demonstrates that our model can further refine quality by using more than one sampling step is provided in Figure <ref type="figure" coords="15,505.86,106.36,8.29,8.64" target="#fig_10">14</ref>, where we show that, while sampling quality with a single step is already high, more steps can give higher diversity and better spelling capabilities. Lastly, we provide an additional qualitative comparison of ADD-XL to other state-of-the-art one and few-step models in Figure <ref type="figure" coords="15,120.13,142.23,8.30,8.64" target="#fig_9">13</ref>. InstaFlow <ref type="bibr" coords="15,88.00,655.68,13.74,7.77" target="#b35">[36]</ref>, and OpenMuse <ref type="bibr" coords="15,164.19,655.68,13.74,7.77">[48]</ref>.</p><p>"a robot is playing the guitar at a rock concert in front of a large crowd."</p><p>"A portrait photo of a kangaroo wearing an orange hoodie and blue sunglasses standing on the grass in front of the Sydney Opera House holding a sign on the chest that says Welcome Friends!" </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0" coords="2,308.86,301.02,236.25,8.12;2,308.86,312.04,235.75,8.06;2,308.86,323.00,236.85,8.06;2,308.86,334.24,236.25,7.77;2,308.86,344.91,236.25,8.06;2,308.86,355.87,236.25,8.06;2,308.86,366.83,124.46,8.06"><head>Figure 2 .</head><label>2</label><figDesc>Figure 2. Adversarial Diffusion Distillation. The ADD-student is trained as a denoiser that receives diffused input images xs and outputs samples xθ (xs, s) and optimizes two objectives: a) adversarial loss: the model aims to fool a discriminator which is trained to distinguish the generated samples xθ from real images x0. b) distillation loss: the model is trained to match the denoised targets xψ of a frozen DM teacher.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1" coords="3,50.11,500.25,495.15,8.12;3,50.11,511.41,495.00,7.93;3,50.11,522.52,495.00,7.77;3,50.11,533.48,40.35,7.77"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. Qualitative comparison to state-of-the-art fast samplers. Single step samples from our ADD-XL (top) and LCM-XL [40], our custom StyleGAN-T [59] baseline, InstaFlow [36] and MUSE. For MUSE, we use the OpenMUSE implementation and default inference settings with 16 sampling steps. For LCM-XL, we sample with 1, 2 and 4 steps. Our model outperforms all other few-step samplers in a single step.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2" coords="4,50.11,256.79,495.00,8.12;4,50.11,268.10,495.00,7.77;4,50.11,279.06,495.00,7.77;4,50.11,290.02,435.49,7.77"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. Qualitative effect of sampling steps. We show qualitative examples when sampling ADD-XL with 1, 2, and 4 steps. Single-step samples are often already of high quality, but increasing the number of steps can further improve the consistency (e.g. second prompt, first column) and attention to detail (e.g. second prompt, second column). The seeds are constant within columns and we see that the general layout is preserved across sampling steps, allowing for fast exploration of outputs while retaining the possibility to refine.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3" coords="5,50.11,231.30,495.44,8.12;5,50.11,242.61,495.00,7.77;5,50.11,253.57,150.42,7.77;5,50.11,72.00,242.56,147.85"><head>Figure 5 .</head><label>5</label><figDesc>Figure 5. User preference study (single step). We compare the performance of ADD-XL (1-step) against established baselines. ADD-XL model outperforms all models, except SDXL in human preference for both image quality and prompt alignment. Using more sampling steps further improves our model (bottom row).</figDesc><graphic coords="5,50.11,72.00,242.56,147.85" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4" coords="7,308.86,431.02,236.25,8.12;7,308.86,442.32,236.25,7.77;7,308.86,453.28,236.25,7.77;7,308.86,464.24,193.38,7.77"><head>Figure 7 .</head><label>7</label><figDesc>Figure 7. Performance vs. speed. We visualize the results reported in Fig.6in combination with the inference speeds of the respective models. The speeds are calculated for generating a single sample at resolution 512x512 on an A100 in mixed precision.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5" coords="8,50.11,376.82,495.00,8.12;8,50.11,388.13,495.00,7.77;8,50.11,399.09,285.53,7.77;8,89.96,309.69,222.72,55.68"><head>AFigure 8 .</head><label>8</label><figDesc>Figure 8. Qualitative comparison to the teacher model. ADD-XL can outperform its teacher model SDXL in the multi-step setting. The adversarial loss boosts realism, particularly enhancing textures (fur, fabric, skin) while reducing oversmoothing, commonly observed in diffusion model samples. ADD-XL's overall sample diversity tends to be lower.</figDesc><graphic coords="8,89.96,309.69,222.72,55.68" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6" coords="13,59.44,230.73,476.35,8.12;13,50.11,72.00,242.54,147.29"><head>Figure 10 .</head><label>10</label><figDesc>Figure 10. User preference study (multiple steps). We compare the performance of ADD-XL (4-step) against established baselines.</figDesc><graphic coords="13,50.11,72.00,242.54,147.29" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7" coords="14,50.11,398.96,496.12,8.12;14,50.11,409.98,450.40,8.06"><head>Figure 11 .</head><label>11</label><figDesc>Figure 11. Comparing text alignment tradeoffs at 256 × 256 pixels. We compare FID-CLIP score curves of StyleGAN-T, StyleGAN-T++, and GigaGAN. For increasing CLIP score, all methods use via decreasing truncation<ref type="bibr" coords="14,355.73,410.27,14.94,7.77" target="#b25">[26]</ref> for values ψ = {1.0, 0.9, . . . , 0.3}.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8" coords="14,50.11,681.39,137.76,8.12;14,187.87,679.69,3.65,5.24;14,194.14,681.39,350.96,8.12;14,49.79,692.70,162.26,7.77;14,50.11,471.94,495.00,198.00"><head>Figure 12 .</head><label>12</label><figDesc>Figure 12. Additional single step 512 2 images generated with ADD-XL. All samples are generated with a single U-Net evaluation trained with adversarial diffusion distillation (ADD).</figDesc><graphic coords="14,50.11,471.94,495.00,198.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9" coords="15,50.11,644.37,496.12,8.12;15,50.11,655.68,131.26,7.77"><head>AFigure 13 .</head><label>13</label><figDesc>Figure 13. Additional qualitative comparisons to state of the art fast samplers. Few step samples from our ADD-XL and LCM-XL [40],InstaFlow<ref type="bibr" coords="15,88.00,655.68,13.74,7.77" target="#b35">[36]</ref>, and OpenMuse[48].</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10" coords="16,50.11,482.95,495.00,8.12;16,50.11,494.26,495.00,7.77;16,50.11,505.22,495.00,7.77;16,50.11,516.18,410.83,7.77;16,77.77,415.82,222.74,55.68"><head>Figure 14 .</head><label>14</label><figDesc>Figure14. Additional results on the qualitative effect of sampling steps. Similar to Figure4, we show qualitative examples when sampling ADD-XL with 1, 2, and 4 steps. Single-step samples are often already of high quality, but increasing the number of steps can further improve the diversity (left) and spelling capabilities (right). The seeds are constant within columns and we see that the general layout is preserved across sampling steps, allowing for fast exploration of outputs while retaining the possibility to refine.</figDesc><graphic coords="16,77.77,415.82,222.74,55.68" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" coords="1,50.11,153.20,495.00,297.00"><head></head><label></label><figDesc></figDesc><graphic coords="1,50.11,153.20,495.00,297.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" coords="6,49.83,71.52,496.85,209.07"><head>Table 1 .</head><label>1</label><figDesc>ADD ablation study. We report COCO zero-shot FID5k (FID) and CLIP score (CS). The results are calculated for a single student step. The default training settings are: DINOv2 ViT-S as the feature network, text and image conditioning for the discriminator, pretrained student weights, a small teacher and student model, and a single teacher step. The training length is 4000 iterations with a batch size of 128. Default settings are marked in gray .</figDesc><table coords="6,52.14,71.52,492.00,157.40"><row><cell>Arch</cell><cell cols="2">Objective FID ↓</cell><cell>CS ↑</cell><cell>ctext</cell><cell>c img</cell><cell>FID ↓</cell><cell>CS ↑</cell><cell>Initialization</cell><cell cols="2">FID ↓ CS ↑</cell></row><row><cell>ViT-S</cell><cell>DINOv1</cell><cell>21.5</cell><cell>0.312</cell><cell>✗</cell><cell>✗</cell><cell>21.2</cell><cell>0.302</cell><cell>Random</cell><cell></cell><cell>293.6 0.065</cell></row><row><cell>ViT-S</cell><cell>DINOv2</cell><cell>20.6</cell><cell>0.319</cell><cell>✓</cell><cell>✗</cell><cell>21.2</cell><cell>0.307</cell><cell>Pretrained</cell><cell></cell><cell>20.6 0.319</cell></row><row><cell>ViT-L</cell><cell>DINOv2</cell><cell>24.0</cell><cell>0.302</cell><cell>✗</cell><cell>✓</cell><cell>21.1</cell><cell>0.316</cell><cell></cell><cell></cell></row><row><cell>ViT-L</cell><cell>CLIP</cell><cell>23.3</cell><cell>0.308</cell><cell>✓</cell><cell>✓</cell><cell>20.6</cell><cell>0.319</cell><cell></cell><cell></cell></row><row><cell cols="4">(a) Discriminator feature networks. Small,</cell><cell cols="4">(b) Discriminator conditioning. Combining</cell><cell cols="3">(c) Student pretraining. A randomly initial-</cell></row><row><cell cols="4">modern DINO networks perform best.</cell><cell cols="4">image and text conditioning is most effective.</cell><cell cols="3">ized student network collapses.</cell></row><row><cell>Loss</cell><cell></cell><cell>FID ↓</cell><cell>CS ↑</cell><cell cols="3">Student Teacher FID ↓</cell><cell>CS ↑</cell><cell cols="2">Steps FID ↓</cell><cell>CS ↑</cell></row><row><cell>L adv</cell><cell></cell><cell>20.8</cell><cell>0.315</cell><cell>SD2.1</cell><cell>SD2.1</cell><cell>20.6</cell><cell>0.319</cell><cell>1</cell><cell>20.6</cell><cell>0.319</cell></row><row><cell>L distill</cell><cell></cell><cell>315.6</cell><cell>0.076</cell><cell>SD2.1</cell><cell>SDXL</cell><cell>21.3</cell><cell>0.321</cell><cell>2</cell><cell>20.8</cell><cell>0.321</cell></row><row><cell cols="2">L adv + λL distill,exp</cell><cell>20.6</cell><cell>0.319</cell><cell>SDXL</cell><cell>SD2.1</cell><cell>29.3</cell><cell>0.314</cell><cell>4</cell><cell>20.3</cell><cell>0.317</cell></row><row><cell cols="2">L adv + λL distill,sds</cell><cell>22.3</cell><cell>0.325</cell><cell>SDXL</cell><cell cols="2">SDXL 28.41</cell><cell>0.325</cell><cell></cell><cell></cell></row><row><cell cols="2">L adv +λL distill,nfsd</cell><cell>21.8</cell><cell>0.327</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="4">(d) Loss terms. Both losses are needed and</cell><cell cols="4">(e) Teacher type. The student adopts the</cell><cell cols="3">(f) Teacher steps. A single teacher step is suffi-</cell></row><row><cell cols="4">exponential weighting of L distill is beneficial.</cell><cell cols="4">teacher's traits (SDXL has higher FID &amp; CS).</cell><cell>cient.</cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" coords="7,49.83,286.45,236.68,160.87"><head>Table 2 .</head><label>2</label><figDesc>Distillation</figDesc><table coords="7,64.11,286.45,208.25,115.98"><row><cell>Method</cell><cell>#Steps</cell><cell>Time (s)</cell><cell>FID ↓</cell><cell>CLIP ↑</cell></row><row><cell>DPM Solver [37]</cell><cell>25 8</cell><cell>0.88 0.34</cell><cell>20.1 31.7</cell><cell>0.318 0.320</cell></row><row><cell></cell><cell>1</cell><cell>0.09</cell><cell>37.2</cell><cell>0.275</cell></row><row><cell>Progressive Distillation [43]</cell><cell>2</cell><cell>0.13</cell><cell>26.0</cell><cell>0.297</cell></row><row><cell></cell><cell>4</cell><cell>0.21</cell><cell>26.4</cell><cell>0.300</cell></row><row><cell>CFG-Aware Distillation [31]</cell><cell>8</cell><cell>0.34</cell><cell>24.2</cell><cell>0.300</cell></row><row><cell>InstaFlow-0.9B [36]</cell><cell>1</cell><cell>0.09</cell><cell>23.4</cell><cell>0.304</cell></row><row><cell>InstaFlow-1.7B [36]</cell><cell>1</cell><cell>0.12</cell><cell>22.4</cell><cell>0.309</cell></row><row><cell>UFOGen [71]</cell><cell>1</cell><cell>0.09</cell><cell>22.5</cell><cell>0.311</cell></row><row><cell>ADD-M</cell><cell>1</cell><cell>0.09</cell><cell>19.7</cell><cell>0.326</cell></row></table><note coords="7,132.56,417.28,153.96,8.12;7,50.11,428.59,236.25,7.77;7,50.11,439.54,156.39,7.77"><p>Comparison We compare ADD to other distillation methods via COCO zero-shot FID5k (FID) and CLIP score (CS). All models are based on SD1.5.</p></note></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0" coords="6,64.46,678.85,142.75,6.91"><p>https://github.com/CompVis/stable-diffusion</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_1" coords="6,64.46,688.58,159.98,6.91"><p>https://github.com/Stability-AI/generative-models</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_2" coords="6,64.46,698.31,103.94,6.91"><p>https://github.com/deep-floyd/IF</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="4" xml:id="foot_3" coords="6,64.46,708.04,177.28,6.91"><p>https://huggingface.co/latent-consistency/lcm-lora-sdxl</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="5" xml:id="foot_4" coords="6,64.46,717.77,110.83,6.91"><p>https://huggingface.co/openMUSE</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="6" xml:id="foot_5" coords="13,64.46,676.71,110.83,6.91"><p>https://huggingface.co/openMUSE</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="7" xml:id="foot_6" coords="13,64.46,686.35,103.94,6.91"><p>https://github.com/deep-floyd/IF</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="8" xml:id="foot_7" coords="13,64.46,696.08,177.28,6.91"><p>https://huggingface.co/latent-consistency/lcm-lora-sdxl</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="9" xml:id="foot_8" coords="13,64.46,705.81,74.39,6.91"><p>https://app.prolific.com</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgements</head><p>We would like to thank <rs type="person">Jonas Müller</rs> for feedback on the draft, the proof, and typesetting; <rs type="person">Patrick Esser</rs> for feedback on the proof and building an early model demo; <rs type="person">Frederic Boesel</rs> for generating data and helpful discussions; <rs type="person">Minguk Kang</rs> and <rs type="person">Taesung Park</rs> for providing GigaGAN samples; <rs type="person">Richard Vencu</rs>, <rs type="person">Harry Saini</rs>, and <rs type="person">Sami Kama</rs> for maintaining the compute infrastructure; <rs type="person">Yara Wald</rs> for creative sampling support; and <rs type="person">Vanessa Sauer</rs> for her general support.</p></div>
+			</div>
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>https://github.com/Stability-AI/generative-models Model weights: https://huggingface.</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Appendix</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. SDS As a Special Case of the Distillation Loss</head><p>If we set the weighting function to c(t) = αt 2σt w(t) where w(t) is the scaling factor from the weighted diffusion loss as in <ref type="bibr" coords="12,528.64,120.99,16.47,8.64" target="#b50">[51]</ref> and choose d(x, y) = ||x -y|| 2  2 , the distillation loss in Eq. ( <ref type="formula" coords="12,290.30,134.53,3.87,8.64">4</ref>) is equivalent to the score distillation objective:</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Details on Human Preference Assessment</head><p>For the evaluation results presented in Figures <ref type="figure" coords="12,244.77,429.06,23.25,8.64">5 to 7</ref>, we employ human evaluation and do not rely on commonly used metrics for quality assessment of generative models such as FID <ref type="bibr" coords="12,312.18,441.01,16.69,8.64" target="#b17">[18]</ref> and CLIP-score <ref type="bibr" coords="12,397.55,441.01,15.38,8.64" target="#b51">[52]</ref>, since these have been shown to capture more fine grained aspects like aesthetics and scene composition only insufficiently <ref type="bibr" coords="12,408.00,452.97,15.69,8.64">[30,</ref><ref type="bibr" coords="12,426.17,452.97,11.77,8.64" target="#b49">50]</ref>. However these categories in particular have become more and more important when comparing current state-of-the-art text-to-image models. We evaluate all models based on 100 selected prompts from the PartiPrompts benchmark <ref type="bibr" coords="12,393.95,476.88,16.65,8.64" target="#b72">[73]</ref> with the most relevant categories (excluding prompts from the category basic). More details on how the study was conducted Appendix B.1 and the rankings computed Appendix B.2 are listed below.</p><p>Figure <ref type="figure" coords="12,95.31,687.09,3.36,7.77">9</ref>. User preference study (single step). We compare the performance of ADD-M (1-step) against established baselines.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct coords="8,328.78,672.29,216.33,7.77;8,328.78,683.24,216.33,7.77;8,328.78,694.20,217.45,7.77;8,328.78,705.16,217.82,7.77;9,70.03,76.13,216.33,7.77;9,70.03,87.08,217.82,7.77;9,70.03,98.04,196.72,7.77" xml:id="b0">
+	<monogr>
+		<title level="m" type="main" coord="9,235.06,87.08,52.80,7.77;9,70.03,98.04,158.30,7.77">A general language assistant as a laboratory for alignment</title>
+		<author>
+			<persName coords=""><forename type="first">Amanda</forename><surname>Askell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuntao</forename><surname>Bai</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Anna</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dawn</forename><surname>Drain</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Deep</forename><surname>Ganguli</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tom</forename><surname>Henighan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andy</forename><surname>Jones</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Nicholas</forename><surname>Joseph</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Mann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Nova</forename><surname>Dassarma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Nelson</forename><surname>Elhage</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zac</forename><surname>Hatfield-Dodds</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Danny</forename><surname>Hernandez</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jackson</forename><surname>Kernion</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Kamal Ndousse</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dario</forename><surname>Cather-Ine Olsson</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tom</forename><surname>Amodei</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jack</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sam</forename><surname>Clark</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chris</forename><surname>Mccandlish</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jared</forename><surname>Olah</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Kaplan</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="page">13</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,110.40,217.45,7.77;9,69.71,121.36,217.78,7.77;9,70.03,132.31,217.82,7.77;9,70.03,143.27,217.82,7.77;9,70.03,154.23,216.33,7.77;9,70.03,165.19,216.33,7.77;9,70.03,176.15,216.56,7.77;9,70.03,187.11,216.33,7.77;9,70.03,198.07,217.81,7.77;9,70.03,209.03,185.75,7.77" xml:id="b1">
+	<monogr>
+		<title level="m" type="main" coord="9,101.79,198.07,186.06,7.77;9,70.03,209.03,147.29,7.77">Training a helpful and harmless assistant with reinforcement learning from human feedback</title>
+		<author>
+			<persName coords=""><forename type="first">Yuntao</forename><surname>Bai</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andy</forename><surname>Jones</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kamal</forename><surname>Ndousse</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Amanda</forename><surname>Askell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Anna</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Nova</forename><surname>Dassarma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dawn</forename><surname>Drain</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stanislav</forename><surname>Fort</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Deep</forename><surname>Ganguli</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tom</forename><surname>Henighan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Nicholas</forename><surname>Joseph</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Saurav</forename><surname>Kadavath</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jackson</forename><surname>Kernion</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tom</forename><surname>Conerly</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sheer</forename><surname>El-Showk</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Nelson</forename><surname>Elhage</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zac</forename><surname>Hatfield-Dodds</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Danny</forename><surname>Hernandez</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tristan</forename><surname>Hume</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Scott</forename><surname>Johnston</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shauna</forename><surname>Kravec</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Liane</forename><surname>Lovitt</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Neel</forename><surname>Nanda</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Catherine</forename><surname>Olsson</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dario</forename><surname>Amodei</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tom</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jack</forename><surname>Clark</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sam</forename><surname>Mccandlish</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chris</forename><surname>Olah</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Mann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jared</forename><surname>Kaplan</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page">13</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,221.38,217.45,7.77;9,69.86,232.34,217.62,7.77;9,69.75,243.30,216.61,7.77;9,70.03,254.26,216.33,7.77;9,70.03,265.06,217.90,7.93;9,69.36,276.17,13.45,7.77" xml:id="b2">
+	<monogr>
+		<title level="m" type="main" coord="9,121.00,254.26,165.36,7.77;9,70.03,265.22,103.37,7.77">ediff-i: Text-to-image diffusion models with an ensemble of expert denoisers</title>
+		<author>
+			<persName coords=""><forename type="first">Yogesh</forename><surname>Balaji</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Seungjun</forename><surname>Nah</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xun</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Arash</forename><surname>Vahdat</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jiaming</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Qinsheng</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Karsten</forename><surname>Kreis</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Miika</forename><surname>Aittala</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Timo</forename><surname>Aila</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Samuli</forename><surname>Laine</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Bryan</forename><surname>Catanzaro</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tero</forename><surname>Karras</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ming-Yu</forename><surname>Liu</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2211.01324</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page">2</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,288.53,217.45,7.77;9,70.03,299.49,216.49,7.77;9,70.03,310.45,216.33,7.77;9,70.03,321.25,216.33,7.93;9,70.03,332.21,217.90,7.93;9,69.36,343.32,13.45,7.77" xml:id="b3">
+	<analytic>
+		<title level="a" type="main" coord="9,248.65,299.49,37.86,7.77;9,70.03,310.45,216.33,7.77;9,70.03,321.40,24.61,7.77">Align Your Latents: High-Resolution Video Synthesis with Latent Diffusion Models</title>
+		<author>
+			<persName><forename type="first">Andreas</forename><surname>Blattmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Huan</forename><surname>Ling</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Dockhorn</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Seung</forename><forename type="middle">Wook</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sanja</forename><surname>Fidler</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Karsten</forename><surname>Kreis</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52729.2023.02161</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,125.06,321.25,161.30,7.72;9,70.03,332.21,115.21,7.72">2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023-06">2023. 2023</date>
+			<biblScope unit="page">2</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,355.68,217.45,7.77;9,69.86,366.63,217.99,7.77;9,70.03,377.44,217.82,7.93;9,70.03,388.40,217.82,7.72;9,70.03,399.36,134.74,7.93" xml:id="b4">
+	<analytic>
+		<title level="a" type="main" coord="9,261.37,366.63,26.49,7.77;9,70.03,377.59,185.25,7.77">Emerging Properties in Self-Supervised Vision Transformers</title>
+		<author>
+			<persName coords=""><forename type="first">Mathilde</forename><surname>Caron</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hugo</forename><surname>Touvron</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ishan</forename><surname>Misra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Herve</forename><surname>Jegou</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Julien</forename><surname>Mairal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Piotr</forename><surname>Bojanowski</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Armand</forename><surname>Joulin</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/iccv48922.2021.00951</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,271.85,377.44,16.00,7.72;9,70.03,388.40,217.82,7.72;9,70.03,399.36,41.45,7.72">2021 IEEE/CVF International Conference on Computer Vision (ICCV)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2021-10">2021</date>
+			<biblScope unit="page" from="9650" to="9660" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,411.86,217.45,7.77;9,69.86,422.82,217.62,7.77;9,69.61,433.78,218.24,7.77;9,70.03,444.59,217.90,7.93;9,69.88,455.55,53.79,7.93" xml:id="b5">
+	<analytic>
+		<title level="a" type="main" coord="9,235.18,433.78,52.67,7.77;9,70.03,444.74,191.55,7.77">MaskGIT: Masked Generative Image Transformer</title>
+		<author>
+			<persName coords=""><forename type="first">Huiwen</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Han</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lu</forename><surname>Jiang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ce</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">William</forename><forename type="middle">T</forename><surname>Freeman</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52688.2022.01103</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,268.51,444.59,19.42,7.72;9,69.88,455.55,18.93,7.72">2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,468.05,216.33,7.77;9,69.61,479.01,218.24,7.77;9,70.03,489.97,216.33,7.77;9,70.03,500.93,217.90,7.77;9,70.03,511.74,143.62,7.93" xml:id="b6">
+	<monogr>
+		<title level="m" type="main" coord="9,203.30,489.97,83.06,7.77;9,70.03,500.93,214.09,7.77">Emu: Enhancing image generation models using photogenic needles in a haystack</title>
+		<author>
+			<persName coords=""><forename type="first">Xiaoliang</forename><surname>Dai</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ji</forename><surname>Hou</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chih-Yao</forename><surname>Ma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sam</forename><surname>Tsai</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jialiang</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Rui</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Peizhao</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Simon</forename><surname>Vandenhende</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xiaofang</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Abhimanyu</forename><surname>Dubey</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2309.15807</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="9,70.03,524.24,217.58,7.77;9,70.03,535.05,216.33,7.93;9,69.88,546.01,205.07,7.93" xml:id="b7">
+	<analytic>
+		<title level="a" type="main" coord="9,263.23,524.24,24.38,7.77;9,70.03,535.20,141.18,7.77">Genie: Higher-order denoising diffusion solvers</title>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Dockhorn</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Arash</forename><surname>Vahdat</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Karsten</forename><surname>Kreis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="9,217.43,535.05,68.92,7.72;9,69.88,546.01,113.57,7.72">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="30150" to="30166" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,558.51,217.45,7.77;9,70.03,569.47,217.45,7.77;9,70.03,580.43,217.82,7.77;9,69.81,591.39,218.04,7.77;9,70.03,602.20,216.33,7.93;9,70.03,613.16,97.87,7.93" xml:id="b8">
+	<monogr>
+		<title level="m" type="main" coord="9,137.10,591.39,150.75,7.77;9,70.03,602.35,148.61,7.77">An image is worth 16x16 words: Transformers for image recognition at scale</title>
+		<author>
+			<persName coords=""><forename type="first">Alexey</forename><surname>Dosovitskiy</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Lucas</forename><surname>Beyer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alexander</forename><surname>Kolesnikov</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dirk</forename><surname>Weissenborn</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xiaohua</forename><surname>Zhai</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Thomas</forename><surname>Unterthiner</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mostafa</forename><surname>Dehghani</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Matthias</forename><surname>Minderer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Georg</forename><surname>Heigold</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sylvain</forename><surname>Gelly</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2010.11929</idno>
+		<idno>. 4</idno>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="9,70.03,625.51,217.90,7.93;9,69.71,636.62,113.72,7.77" xml:id="b9">
+	<monogr>
+		<title level="m" type="main" coord="9,122.49,625.51,161.79,7.72">New York</title>
+		<author>
+			<persName coords=""><forename type="first">E</forename><surname>Arpad</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Elo</surname></persName>
+		</author>
+		<idno type="DOI">10.1163/1877-5888_rpp_com_024091</idno>
+		<imprint>
+			<date type="published" when="1978">1978</date>
+			<publisher>Brill</publisher>
+			<biblScope unit="page">13</biblScope>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,648.97,217.82,7.77;9,70.03,659.78,216.78,7.93;9,69.88,670.74,216.48,7.72;9,69.75,681.70,174.99,7.93" xml:id="b10">
+	<analytic>
+		<title level="a" type="main" coord="9,268.76,648.97,19.09,7.77;9,70.03,659.93,191.13,7.77">Taming Transformers for High-Resolution Image Synthesis</title>
+		<author>
+			<persName coords=""><forename type="first">Patrick</forename><surname>Esser</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bjorn</forename><surname>Ommer</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr46437.2021.01268</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,69.88,670.74,216.48,7.72;9,69.75,681.70,71.74,7.72">2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2020">2021. 2020</date>
+			<biblScope unit="page" from="12868" to="12878" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,70.03,694.20,217.45,7.77;9,69.86,705.16,216.50,7.77;9,328.78,76.13,217.45,7.77;9,328.78,87.08,27.89,7.77" xml:id="b11">
+	<analytic>
+		<title level="a" type="main" coord="9,252.83,705.16,33.53,7.77;9,328.78,76.13,213.35,7.77">Structure and Content-Guided Video Synthesis with Diffusion Models</title>
+		<author>
+			<persName coords=""><forename type="first">Patrick</forename><surname>Esser</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Johnathan</forename><surname>Chiu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Parmida</forename><surname>Atighehchian</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Granskog</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Anastasis</forename><surname>Germanidis</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/iccv51070.2023.00675</idno>
+	</analytic>
+	<monogr>
+		<title level="m">2023 IEEE/CVF International Conference on Computer Vision (ICCV)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023-10-01">2023</date>
+			<biblScope unit="volume">1</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,99.07,217.45,7.77;9,328.50,110.02,217.73,7.77;9,328.78,120.98,216.33,7.77;9,328.78,131.79,216.33,7.93;9,328.78,142.75,90.16,7.93" xml:id="b12">
+	<monogr>
+		<title level="m" type="main" coord="9,432.45,120.98,112.66,7.77;9,328.78,131.94,147.75,7.77">Unifying gans and score-based diffusion as generative particle models</title>
+		<author>
+			<persName coords=""><forename type="first">Jean-Yves</forename><surname>Franceschi</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mike</forename><surname>Gartrell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dos</forename><surname>Ludovic</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Thibaut</forename><surname>Santos</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Emmanuel</forename><surname>Issenhuth</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mickaël</forename><surname>De Bézenac</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alain</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Rakotomamonjy</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2305.16150</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="9,328.78,154.88,216.33,7.77;9,328.46,165.84,217.78,7.77;9,328.78,176.65,217.82,7.93;9,328.78,187.61,189.26,7.93" xml:id="b13">
+	<analytic>
+		<title level="a" type="main" coord="9,404.59,176.80,114.77,7.77">Generative adversarial networks</title>
+		<author>
+			<persName coords=""><forename type="first">Ian</forename><forename type="middle">J</forename><surname>Goodfellow</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jean</forename><surname>Pouget-Abadie</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mehdi</forename><surname>Mirza</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Bing</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">David</forename><surname>Warde-Farley</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sherjil</forename><surname>Ozair</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Aaron</forename><forename type="middle">C</forename><surname>Courville</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yoshua</forename><surname>Bengio</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3422622</idno>
+	</analytic>
+	<monogr>
+		<title level="j" coord="9,526.50,176.65,20.10,7.72;9,328.78,187.61,84.17,7.72">Communications of the ACM</title>
+		<title level="j" type="abbrev">Commun. ACM</title>
+		<idno type="ISSN">0001-0782</idno>
+		<idno type="ISSNe">1557-7317</idno>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="139" to="144" />
+			<date type="published" when="2014">2014</date>
+			<publisher>Association for Computing Machinery (ACM)</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,199.74,217.90,7.77;9,328.36,210.55,217.87,7.93;9,328.78,221.66,27.89,7.77" xml:id="b14">
+	<analytic>
+		<title level="a" type="main" coord="9,328.36,210.70,188.79,7.77">When, why, and which pretrained gans are useful?</title>
+		<author>
+			<persName coords=""><forename type="first">Timofey</forename><surname>Grigoryev</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andrey</forename><surname>Voynov</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Artem</forename><surname>Babenko</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="9,524.13,210.55,17.68,7.72">ICLR</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,233.64,217.82,7.77;9,328.78,244.45,216.33,7.93;9,328.49,255.41,206.96,7.93" xml:id="b15">
+	<analytic>
+		<title level="a" type="main" coord="9,513.11,233.64,33.49,7.77;9,328.78,244.60,45.44,7.77">Delta Denoising Score</title>
+		<author>
+			<persName coords=""><forename type="first">Amir</forename><surname>Hertz</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kfir</forename><surname>Aberman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Daniel</forename><surname>Cohen-Or</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/iccv51070.2023.00221</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,390.47,244.45,154.64,7.72;9,328.49,255.41,113.56,7.72">2023 IEEE/CVF International Conference on Computer Vision (ICCV)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023-10-01">2023</date>
+			<biblScope unit="page" from="2328" to="2337" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,267.54,217.45,7.77;9,328.78,278.50,216.33,7.77;9,328.78,289.31,198.31,7.93" xml:id="b16">
+	<analytic>
+		<title level="a" type="main" coord="9,394.81,278.50,150.30,7.77;9,328.78,289.46,98.45,7.77">CLIPScore: A Reference-free Evaluation Metric for Image Captioning</title>
+		<author>
+			<persName coords=""><forename type="first">Jack</forename><surname>Hessel</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ari</forename><surname>Holtzman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Maxwell</forename><surname>Forbes</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ronan</forename><surname>Le Bras</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yejin</forename><surname>Choi</surname></persName>
+		</author>
+		<idno type="DOI">10.18653/v1/2021.emnlp-main.595</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,443.82,289.31,47.87,7.72">Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing</title>
+		<meeting>the 2021 Conference on Empirical Methods in Natural Language Processing</meeting>
+		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="volume">6</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,301.44,217.82,7.77;9,328.78,312.40,216.33,7.77;9,328.78,323.36,217.90,7.77;9,328.49,334.16,76.70,7.93" xml:id="b17">
+	<analytic>
+		<title level="a" type="main" coord="9,459.99,312.40,85.12,7.77;9,328.78,323.36,214.18,7.77">GANs trained by a two time-scale update rule converge to a local Nash equilibrium</title>
+		<author>
+			<persName coords=""><forename type="first">Martin</forename><surname>Heusel</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hubert</forename><surname>Ramsauer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Thomas</forename><surname>Unterthiner</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Bernhard</forename><surname>Nessler</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sepp</forename><surname>Hochreiter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="9,328.49,334.16,28.98,7.72">NeurIPS</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page">12</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,346.14,217.45,7.93;9,328.78,357.26,89.40,7.77" xml:id="b18">
+	<monogr>
+		<title level="m" type="main" coord="9,386.90,346.30,123.47,7.77">Classifier-free diffusion guidance</title>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<idno>. 2</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,369.24,216.33,7.77;9,328.78,380.04,185.54,7.93" xml:id="b19">
+	<monogr>
+		<title level="m" type="main" coord="9,473.17,369.24,71.94,7.77;9,328.78,380.20,71.20,7.77">Denoising diffusion probabilistic models</title>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ajay</forename><surname>Jain</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">P</forename><surname>Abbeel</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2006.11239</idno>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,392.18,217.45,7.77;9,328.78,403.14,216.33,7.77;9,328.78,414.10,217.90,7.77;9,328.78,425.05,216.33,7.77;9,328.78,435.86,155.14,7.93" xml:id="b20">
+	<monogr>
+		<title level="m" type="main" coord="9,328.78,425.05,216.33,7.77;9,328.78,436.01,24.12,7.77">Imagen video: High definition video generation with diffusion models</title>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">William</forename><surname>Chan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chitwan</forename><surname>Saharia</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jay</forename><surname>Whang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ruiqi</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alexey</forename><forename type="middle">A</forename><surname>Gritsenko</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">P</forename><surname>Diederik</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Kingma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mohammad</forename><surname>Poole</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">David</forename><forename type="middle">J</forename><surname>Norouzi</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Fleet</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Salimans</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2210.02303</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page">2</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,447.99,217.45,7.77;9,328.26,458.95,217.08,7.77;9,328.78,469.76,217.45,7.93;9,328.78,480.87,20.17,7.77" xml:id="b21">
+	<monogr>
+		<title level="m" type="main" coord="9,488.72,458.95,56.62,7.77;9,328.78,469.91,126.59,7.77">Lora: Low-rank adaptation of large language models</title>
+		<author>
+			<persName coords=""><forename type="first">J</forename><forename type="middle">Edward</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yelong</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Phillip</forename><surname>Wallis</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zeyuan</forename><surname>Allen-Zhu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuanzhi</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shean</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Weizhu</forename><surname>Chen</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2106.09685</idno>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,492.85,217.82,7.77;9,328.61,503.81,217.99,7.77;9,328.78,514.62,216.33,7.93;9,328.78,525.58,97.87,7.93" xml:id="b22">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Yukun</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jianan</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yukai</forename><surname>Shi</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xianbiao</forename><surname>Qi</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zheng-Jun</forename><surname>Zha</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Lei</forename><surname>Zhang</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2306.12422</idno>
+		<idno>. 6</idno>
+		<title level="m" coord="9,418.55,503.81,128.04,7.77;9,328.78,514.77,156.74,7.77">Dreamtime: An improved optimization strategy for text-to-3d content creation</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="9,328.78,537.71,217.82,7.77;9,328.78,548.67,216.33,7.77;9,328.78,559.48,216.33,7.93;9,328.78,570.44,129.17,7.93" xml:id="b23">
+	<monogr>
+		<title level="m" type="main" coord="9,482.08,548.67,63.03,7.77;9,328.78,559.63,190.51,7.77">Adversarial score matching and improved sampling for image generation</title>
+		<author>
+			<persName coords=""><forename type="first">Alexia</forename><surname>Jolicoeur-Martineau</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Rémi</forename><surname>Piché-Taillefer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Rémi</forename><surname>Tachet Des Combes</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ioannis</forename><surname>Mitliagkas</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2009.05475</idno>
+		<idno>. 3</idno>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="9,328.78,582.57,216.33,7.77;9,328.78,593.53,216.33,7.77;9,328.78,604.34,216.33,7.93;9,328.49,615.29,217.75,7.72;9,328.78,626.41,135.72,7.77" xml:id="b24">
+	<analytic>
+		<title level="a" type="main" coord="9,489.70,593.53,55.41,7.77;9,328.78,604.49,93.48,7.77">Scaling up GANs for Text-to-Image Synthesis</title>
+		<author>
+			<persName coords=""><forename type="first">Minguk</forename><surname>Kang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jun-Yan</forename><surname>Zhu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Richard</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jaesik</forename><surname>Park</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Eli</forename><surname>Shechtman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sylvain</forename><surname>Paris</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Taesung</forename><surname>Park</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52729.2023.00976</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,438.58,604.34,106.52,7.72;9,328.49,615.29,213.88,7.72">2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023-06">2023</date>
+			<biblScope unit="page">14</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,638.39,216.33,7.77;9,328.78,649.35,217.90,7.77;9,328.56,660.15,216.56,7.72;9,328.50,671.11,196.15,7.93" xml:id="b25">
+	<analytic>
+		<title level="a" type="main" coord="9,494.51,638.39,50.60,7.77;9,328.78,649.35,213.93,7.77">A style-based generator architecture for generative adversarial networks</title>
+		<author>
+			<persName coords=""><forename type="first">Tero</forename><surname>Karras</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Samuli</forename><surname>Laine</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Timo</forename><surname>Aila</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,348.42,660.15,196.69,7.72;9,328.50,671.11,71.74,7.72">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<date type="published" when="2018">2019. 2018</date>
+			<biblScope unit="page">14</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="9,328.78,683.24,217.45,7.77;9,328.61,694.20,216.50,7.77;9,328.78,705.01,216.33,7.93;10,70.03,75.97,216.33,7.93;10,70.03,87.08,81.68,7.77" xml:id="b26">
+	<analytic>
+		<title level="a" type="main" coord="9,451.51,694.20,93.61,7.77;9,328.78,705.16,104.82,7.77">Analyzing and Improving the Image Quality of StyleGAN</title>
+		<author>
+			<persName coords=""><forename type="first">Tero</forename><surname>Karras</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Samuli</forename><surname>Laine</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Miika</forename><surname>Aittala</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Janne</forename><surname>Hellsten</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jaakko</forename><surname>Lehtinen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Timo</forename><surname>Aila</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr42600.2020.00813</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,461.33,705.01,83.78,7.72;10,70.03,75.97,189.34,7.72">2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2019">2020. 2019</date>
+			<biblScope unit="page">4</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,99.07,216.33,7.77;10,70.03,109.87,216.33,7.93;10,70.03,120.83,97.87,7.93" xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Preprint repository arXiv achieves milestone million uploads</title>
+		<author>
+			<persName coords=""><forename type="first">Oren</forename><surname>Katzir</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Or</forename><surname>Patashnik</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Daniel</forename><surname>Cohen-Or</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dani</forename><surname>Lischinski</surname></persName>
+		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
+		<idno type="arXiv">arXiv:2310.17590</idno>
+		<idno>. 5</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<publisher>AIP Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,132.96,217.82,7.77;10,70.03,143.92,216.33,7.77;10,70.03,154.88,217.58,7.77;10,70.03,165.69,216.33,7.93;10,70.03,176.65,121.46,7.93" xml:id="b28">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Dongjun</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chieh-Hsin</forename><surname>Lai</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Wei-Hsiang</forename><surname>Liao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Naoki</forename><surname>Murata</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuhta</forename><surname>Takida</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Toshimitsu</forename><surname>Uesaka</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yutong</forename><surname>He</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuki</forename><surname>Mitsufuji</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stefano</forename><surname>Ermon</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2310.02279</idno>
+		<title level="m" coord="10,179.27,154.88,108.34,7.77;10,70.03,165.84,189.37,7.77">Consistency trajectory models: Learning probability flow ode trajectory of diffusion</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,188.78,217.82,7.77;10,70.03,199.74,216.33,7.77;10,70.03,210.70,208.26,7.77" xml:id="b29">
+	<monogr>
+		<title level="m" type="main" coord="10,189.12,199.74,97.24,7.77;10,70.03,210.70,170.01,7.77">Pick-a-pic: An open dataset of user preferences for text-to-image generation</title>
+		<author>
+			<persName coords=""><forename type="first">Yuval</forename><surname>Kirstain</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Adam</forename><surname>Polyak</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Uriel</forename><surname>Singer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shahbuland</forename><surname>Matiana</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Joe</forename><surname>Penna</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Omer</forename><surname>Levy</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">12</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,222.68,216.33,7.77;10,70.03,233.64,217.58,7.77;10,69.75,244.60,216.61,7.77;10,70.03,255.41,185.19,7.93" xml:id="b30">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Yanyu</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Huan</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Qing</forename><surname>Jin</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ju</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Pavlo</forename><surname>Chemerys</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yun</forename><surname>Fu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yanzhi</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sergey</forename><surname>Tulyakov</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Ren</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2306.00980</idno>
+		<idno>2023. 7</idno>
+		<title level="m" coord="10,245.62,233.64,41.98,7.77;10,69.75,244.60,216.61,7.77;10,70.03,255.56,26.80,7.77">Snapfusion: Text-to-image diffusion model on mobile devices within two seconds</title>
+		<imprint/>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,267.39,216.33,7.93;10,70.03,278.35,121.46,7.93" xml:id="b31">
+	<analytic>
+		<title level="a" type="main" coord="10,202.68,267.54,53.35,7.77">Preprint repository arXiv achieves milestone million uploads</title>
+		<author>
+			<persName coords=""><forename type="first">Jae</forename></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hyun</forename><surname>Lim</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jong</forename><surname>Chul</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ye</forename></persName>
+		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
+		<idno type="arXiv">arXiv:1705.02894</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<publisher>AIP Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,290.48,217.82,7.77;10,70.03,301.44,217.45,7.77;10,70.03,312.40,27.89,7.77" xml:id="b32">
+	<analytic>
+		<title level="a" type="main" coord="10,267.84,290.48,20.02,7.77;10,70.03,301.44,213.66,7.77">A construction method for communication APP security portrait based on flawed API</title>
+		<author>
+			<persName><forename type="first">Shanling</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Changyou</forename><surname>Zheng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sen</forename><surname>Yang</surname></persName>
+		</author>
+		<idno type="DOI">10.1117/12.2685958</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Second International Conference on Electronic Information Technology (EIT 2023)</title>
+		<imprint>
+			<publisher>SPIE</publisher>
+			<date type="published" when="2023-08-15">2023</date>
+			<biblScope unit="volume">4</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,324.38,217.82,7.77;10,70.03,335.34,217.82,7.77;10,70.03,346.30,216.33,7.77;10,70.03,357.26,153.32,7.77" xml:id="b33">
+	<analytic>
+		<title level="a" type="main" coord="10,250.29,346.30,36.07,7.77;10,70.03,357.26,119.63,7.77">Microsoft COCO: Common Objects in Context</title>
+		<author>
+			<persName coords=""><forename type="first">Tsung-Yi</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Michael</forename><surname>Maire</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Serge</forename><surname>Belongie</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">James</forename><surname>Hays</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Pietro</forename><surname>Perona</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Deva</forename><surname>Ramanan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Piotr</forename><surname>Dollár</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">C</forename><forename type="middle">Lawrence</forename><surname>Zitnick</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-319-10602-1_48</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Computer Vision – ECCV 2014</title>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="740" to="755" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,369.24,216.33,7.77;10,70.03,380.20,216.33,7.77;10,70.03,391.00,216.33,7.93;10,69.75,401.96,89.82,7.93" xml:id="b34">
+	<analytic>
+		<title level="a" type="main" coord="10,220.33,369.24,66.03,7.77;10,70.03,380.20,216.33,7.77;10,70.03,391.16,13.90,7.77">Learning-Aided Optimal Power Flow Based Fast Total Transfer Capability Calculation</title>
+		<author>
+			<persName><forename type="first">Ji’ang</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Youbo</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gao</forename><surname>Qiu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xiao</forename><surname>Shao</surname></persName>
+		</author>
+		<idno type="DOI">10.3390/en15041320</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Energies</title>
+		<title level="j" type="abbrev">Energies</title>
+		<idno type="ISSNe">1996-1073</idno>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">1320</biblScope>
+			<date type="published" when="2022-02-11">2022</date>
+			<publisher>MDPI AG</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,414.10,216.33,7.77;10,70.03,425.05,216.64,7.77;10,70.03,435.86,216.33,7.93;10,70.03,446.82,129.25,7.93" xml:id="b35">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Xingchao</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xiwen</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jianzhu</forename><surname>Ma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Peng</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Qiang</forename><surname>Liu</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2309.06380</idno>
+		<title level="m" coord="10,114.76,425.05,171.91,7.77;10,70.03,436.01,150.60,7.77">Instaflow: One step is enough for high-quality diffusion-based text-to-image generation</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">15</biblScope>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,458.95,216.33,7.77;10,70.03,469.91,216.33,7.77;10,70.03,480.72,216.33,7.93;10,69.74,491.68,218.20,7.93;10,70.03,502.79,13.45,7.77" xml:id="b36">
+	<analytic>
+		<title level="a" type="main" coord="10,131.80,469.91,154.56,7.77;10,70.03,480.87,167.41,7.77">Dpm-solver: A fast ode solver for diffusion probabilistic model sampling in around 10 steps</title>
+		<author>
+			<persName coords=""><forename type="first">Cheng</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuhao</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Fan</forename><surname>Bao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jianfei</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chongxuan</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jun</forename><surname>Zhu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="10,243.72,480.72,42.63,7.72;10,69.74,491.68,137.46,7.72">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page">7</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,514.77,216.33,7.77;10,70.03,525.73,216.33,7.77;10,70.03,536.54,217.45,7.93;10,70.03,547.65,102.85,7.77" xml:id="b37">
+	<monogr>
+		<title level="m" type="main" coord="10,126.94,525.73,159.43,7.77;10,70.03,536.69,179.86,7.77">Latent consistency models: Synthesizing high-resolution images with few-step inference</title>
+		<author>
+			<persName coords=""><forename type="first">Simian</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yiqin</forename><surname>Tan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Longbo</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hang</forename><surname>Zhao</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2310.04378</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">13</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,559.63,216.33,7.77;10,70.03,570.59,217.82,7.77;10,70.03,581.39,216.33,7.93;10,70.03,592.35,90.16,7.93" xml:id="b38">
+	<monogr>
+		<title level="m" type="main" coord="10,103.15,570.59,184.71,7.77;10,70.03,581.55,154.39,7.77">Latent consistency models: Synthesizing highresolution images with few-step inference</title>
+		<author>
+			<persName coords=""><forename type="first">Simian</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yiqin</forename><surname>Tan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Longbo</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hang</forename><surname>Zhao</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2310.04378</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,604.49,216.33,7.77;10,70.03,615.45,216.33,7.77;10,70.03,626.41,216.33,7.77;10,70.03,637.21,183.04,7.93" xml:id="b39">
+	<monogr>
+		<title level="m" type="main" coord="10,96.22,626.41,190.15,7.77;10,70.03,637.36,24.98,7.77">Lcm-lora: A universal stable-diffusion acceleration module</title>
+		<author>
+			<persName coords=""><forename type="first">Simian</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yiqin</forename><surname>Tan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Suraj</forename><surname>Patil</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Daniel</forename><surname>Gu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Patrick Von Platen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Longbo</forename><surname>Apolin'ario Passos</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hang</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Zhao</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2311.05556</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page" from="13" to="15" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,70.03,649.35,216.33,7.77;10,70.03,660.30,216.33,7.77;10,70.03,671.26,216.33,7.77;10,70.03,682.07,175.99,7.93" xml:id="b40">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Simian</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yiqin</forename><surname>Tan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Suraj</forename><surname>Patil</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Daniel</forename><surname>Gu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Apolinário</forename><surname>Patrick Von Platen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Longbo</forename><surname>Passos</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hang</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Zhao</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2311.05556</idno>
+		<title level="m" coord="10,96.22,671.26,190.15,7.77;10,70.03,682.22,24.98,7.77">Lcm-lora: A universal stable-diffusion acceleration module</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,70.03,694.20,217.45,7.77;10,70.03,705.16,217.82,7.77;10,328.78,76.13,216.33,7.77;10,328.78,86.93,175.00,7.93" xml:id="b41">
+	<monogr>
+		<title level="m" type="main" coord="10,185.22,705.16,102.63,7.77;10,328.78,76.13,216.33,7.77;10,328.78,87.08,24.12,7.77">Diff-instruct: A universal ap-proach for transferring knowledge from pre-trained diffusion models</title>
+		<author>
+			<persName coords=""><forename type="first">Weijian</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tianyang</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shifeng</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jiacheng</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zhenguo</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zhihua</forename><surname>Zhang</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2305.18455</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,328.78,99.22,216.55,7.77;10,328.78,110.18,217.90,7.77;10,328.78,120.99,216.33,7.93;10,328.78,131.95,216.33,7.72;10,328.50,142.91,161.04,7.93" xml:id="b42">
+	<analytic>
+		<title level="a" type="main" coord="10,328.78,121.14,146.65,7.77">On distillation of guided diffusion models</title>
+		<author>
+			<persName coords=""><forename type="first">Chenlin</forename><surname>Meng</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ruiqi</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Diederik</forename><surname>Kingma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stefano</forename><surname>Ermon</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Salimans</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,492.25,120.99,52.87,7.72;10,328.78,131.95,216.33,7.72;10,328.50,142.91,41.70,7.72">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</title>
+		<meeting>the IEEE/CVF Conference on Computer Vision and Pattern Recognition</meeting>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">7</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,155.20,217.90,7.77;10,328.36,166.16,216.75,7.77;10,328.63,176.96,217.83,7.93;10,328.78,188.07,79.20,7.77" xml:id="b43">
+	<analytic>
+		<title level="a" type="main" coord="10,328.36,166.16,203.90,7.77">Occupancy Networks: Learning 3D Reconstruction in Function Space</title>
+		<author>
+			<persName coords=""><forename type="first">Lars</forename><surname>Mescheder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Oechsle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Niemeyer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sebastian</forename><surname>Nowozin</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Geiger</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr.2019.00459</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,328.63,176.96,166.11,7.72">2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page">5</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,200.21,216.33,7.77;10,328.78,211.17,216.33,7.77;10,328.78,221.98,216.33,7.93;10,328.49,232.94,216.63,7.93;10,328.11,244.05,73.97,7.77" xml:id="b44">
+	<analytic>
+		<title level="a" type="main" coord="10,398.30,211.17,146.82,7.77;10,328.78,222.13,92.17,7.77">Latent-NeRF for Shape-Guided Generation of 3D Shapes and Textures</title>
+		<author>
+			<persName coords=""><forename type="first">Gal</forename><surname>Metzer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Elad</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Or</forename><surname>Patashnik</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Raja</forename><surname>Giryes</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Daniel</forename><surname>Cohen-Or</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52729.2023.01218</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,449.43,221.98,95.68,7.72;10,328.49,232.94,187.89,7.72">2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2022">2023. 2022</date>
+			<biblScope unit="page" from="12663" to="12673" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,256.19,216.33,7.77;10,328.78,266.99,196.42,7.93" xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Preprint repository arXiv achieves milestone million uploads</title>
+		<author>
+			<persName coords=""><forename type="first">Takeru</forename><surname>Miyato</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Masanori</forename><surname>Koyama</surname></persName>
+		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
+		<idno type="arXiv">arXiv:1802.05637</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<publisher>AIP Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,328.78,279.28,217.45,7.77;10,328.78,290.24,216.33,7.77;10,328.78,301.20,217.57,7.77;10,328.78,312.01,216.33,7.93;10,328.78,322.97,129.17,7.93" xml:id="b46">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Maxime</forename><surname>Oquab</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Timothée</forename><surname>Darcet</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Théo</forename><surname>Moutakanni</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Huy</forename><surname>Vo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Marc</forename><surname>Szafraniec</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Vasil</forename><surname>Khalidov</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Pierre</forename><surname>Fernandez</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Daniel</forename><surname>Haziza</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Francisco</forename><surname>Massa</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alaaeldin</forename><surname>El-Nouby</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2304.07193</idno>
+		<idno>2023. 6</idno>
+		<title level="m" coord="10,517.49,301.20,28.87,7.77;10,328.78,312.16,188.03,7.77">Dinov2: Learning robust visual features without supervision</title>
+		<imprint/>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,328.78,335.26,217.58,7.77;10,328.46,346.22,217.16,7.77;10,328.78,357.18,76.97,7.77" xml:id="b47">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Suraj</forename><surname>Patil</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">William</forename><surname>Berman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Patrick Von Platen</surname></persName>
+		</author>
+		<ptr target="https://github.com/huggingface/diffusers" />
+		<title level="m" coord="10,514.63,335.26,31.73,7.77;10,328.46,346.22,81.28,7.77">Amused: An open muse model</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">15</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,369.32,216.33,7.77;10,328.46,380.12,218.15,7.93;10,328.78,391.08,217.45,7.93;10,328.78,402.19,27.89,7.77" xml:id="b48">
+	<analytic>
+		<title level="a" type="main" coord="10,452.53,369.32,92.58,7.77;10,328.46,380.27,63.85,7.77">Scalable Diffusion Models with Transformers</title>
+		<author>
+			<persName coords=""><forename type="first">William</forename><surname>Peebles</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Saining</forename><surname>Xie</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/iccv51070.2023.00387</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,411.50,380.12,135.11,7.72;10,328.78,391.08,146.21,7.72">2023 IEEE/CVF International Conference on Computer Vision (ICCV)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023-10-01">2023</date>
+			<biblScope unit="page" from="4195" to="4205" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,414.33,217.46,7.77;10,328.50,425.29,218.18,7.77;10,328.78,436.25,216.33,7.77;10,328.78,447.06,217.45,7.93;10,328.47,458.17,67.25,7.77" xml:id="b49">
+	<monogr>
+		<title level="m" type="main" coord="10,328.78,436.25,216.33,7.77;10,328.78,447.21,56.14,7.77">Sdxl: Improving latent diffusion models for high-resolution image synthesis</title>
+		<author>
+			<persName coords=""><forename type="first">Dustin</forename><surname>Podell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zion</forename><surname>English</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kyle</forename><surname>Lacey</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Blattmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Dockhorn</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonas</forename><surname>Müller</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Joe</forename><surname>Penna</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2307.01952</idno>
+		<imprint>
+			<date type="published" when="2023">2023. 5, 6, 7, 8, 12, 13</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,328.78,470.31,217.90,7.77;10,328.78,481.11,216.33,7.93;10,328.78,492.07,120.28,7.93" xml:id="b50">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Poole</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ajay</forename><surname>Jain</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><forename type="middle">T</forename><surname>Barron</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Mildenhall</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2209.14988</idno>
+		<title level="m" coord="10,328.78,481.26,157.75,7.77">Dreamfusion: Text-to-3d using 2d diffusion</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page">12</biblScope>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="10,328.78,504.36,216.33,7.77;10,328.78,515.32,217.45,7.77;10,328.46,526.28,216.66,7.77;10,328.78,537.24,217.82,7.77;10,328.78,548.05,216.33,7.93;10,328.78,559.16,115.07,7.77" xml:id="b51">
+	<analytic>
+		<title level="a" type="main" coord="10,513.10,526.28,32.01,7.77;10,328.78,537.24,217.82,7.77;10,328.78,548.20,13.50,7.77">Learning transferable visual models from natural language supervision</title>
+		<author>
+			<persName coords=""><forename type="first">Alec</forename><surname>Radford</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jong</forename><forename type="middle">Wook</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chris</forename><surname>Hallacy</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Aditya</forename><surname>Ramesh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Gabriel</forename><surname>Goh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sandhini</forename><surname>Agarwal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Girish</forename><surname>Sastry</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Amanda</forename><surname>Askell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Pamela</forename><surname>Mishkin</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jack</forename><surname>Clark</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,358.50,548.05,160.75,7.72">International conference on machine learning</title>
+		<imprint>
+			<publisher>PMLR</publisher>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page">12</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,571.30,217.45,7.77;10,328.78,582.25,217.82,7.77;10,328.78,593.06,217.45,7.93;10,328.47,604.17,4.48,7.77" xml:id="b52">
+	<monogr>
+		<title level="m" type="main" coord="10,391.26,582.25,155.34,7.77;10,328.78,593.21,78.97,7.77">Hierarchical text-conditional image generation with clip latents</title>
+		<author>
+			<persName coords=""><forename type="first">Aditya</forename><surname>Ramesh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Prafulla</forename><surname>Dhariwal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alex</forename><surname>Nichol</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Casey</forename><surname>Chu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mark</forename><surname>Chen</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2204.06125</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page">4</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,616.31,216.55,7.77;10,328.78,627.27,216.33,7.77;10,328.46,638.08,216.66,7.93;10,328.78,649.04,216.33,7.93;10,328.11,660.15,117.55,7.77" xml:id="b53">
+	<analytic>
+		<title level="a" type="main" coord="10,426.21,627.27,118.90,7.77;10,328.46,638.23,102.32,7.77">High-Resolution Image Synthesis with Latent Diffusion Models</title>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andreas</forename><surname>Blattmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dominik</forename><surname>Lorenz</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Patrick</forename><surname>Esser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bjorn</forename><surname>Ommer</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52688.2022.01042</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,460.88,638.08,84.23,7.72;10,328.78,649.04,189.34,7.72">2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2021">2022. 2021</date>
+			<biblScope unit="page">8</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="10,328.78,672.29,217.45,7.77;10,328.61,683.24,216.50,7.77;10,328.78,694.20,217.82,7.77;10,328.78,705.16,216.33,7.77;11,70.03,75.97,216.33,7.93;11,69.81,86.93,134.98,7.93" xml:id="b54">
+	<analytic>
+		<title level="a" type="main" coord="10,530.00,694.20,16.60,7.77;10,328.78,705.16,216.33,7.77;11,70.03,76.13,49.90,7.77">Photorealistic text-to-image diffusion models with deep language understanding</title>
+		<author>
+			<persName coords=""><forename type="first">Chitwan</forename><surname>Saharia</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">William</forename><surname>Chan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Saurabh</forename><surname>Saxena</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Lala</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jay</forename><surname>Whang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Emily</forename><forename type="middle">L</forename><surname>Denton</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kamyar</forename><surname>Ghasemipour</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Raphael</forename><forename type="middle">Gontijo</forename><surname>Lopes</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Burcu</forename><surname>Karagol Ayan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Salimans</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="11,127.03,75.97,159.33,7.72;11,69.81,86.93,26.80,7.72">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">6</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,99.14,216.48,7.77;11,70.03,109.95,217.45,7.93;11,70.03,121.06,27.89,7.77" xml:id="b55">
+	<monogr>
+		<title level="m" type="main" coord="11,189.91,99.14,96.60,7.77;11,70.03,110.10,121.93,7.77">Progressive distillation for fast sampling of diffusion models</title>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Salimans</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<idno>CoRR, abs/2202.00512</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,133.11,217.90,7.77;11,70.03,143.92,217.82,7.93;11,70.03,154.88,176.18,7.93" xml:id="b56">
+	<analytic>
+		<title level="a" type="main" coord="11,70.03,144.07,107.25,7.77">Projected gans converge faster</title>
+		<author>
+			<persName coords=""><forename type="first">Axel</forename><surname>Sauer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kashyap</forename><surname>Chitta</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jens</forename><surname>Müller</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Geiger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="11,183.56,143.92,104.29,7.72;11,70.03,154.88,84.68,7.72">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="page" from="17480" to="17492" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,167.08,217.58,7.77;11,70.03,177.89,216.33,7.93;11,69.81,188.85,149.17,7.93" xml:id="b57">
+	<analytic>
+		<title level="a" type="main" coord="11,244.74,167.08,42.87,7.77;11,70.03,178.04,145.42,7.77">StyleGAN-XL: Scaling StyleGAN to Large Diverse Datasets</title>
+		<author>
+			<persName coords=""><forename type="first">Axel</forename><surname>Sauer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Katja</forename><surname>Schwarz</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Geiger</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3528233.3530738</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="11,222.08,177.89,64.28,7.72;11,69.81,188.85,106.19,7.72">Special Interest Group on Computer Graphics and Interactive Techniques Conference Proceedings</title>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2022-08-07">2022</date>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page">4</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,201.06,216.33,7.77;11,69.75,212.01,216.61,7.77;11,70.03,222.82,217.46,7.93;11,69.72,233.93,35.87,7.77" xml:id="b58">
+	<analytic>
+		<title level="a" type="main" coord="11,112.16,212.01,174.20,7.77;11,70.03,222.97,123.66,7.77">Stylegan-t: Unlocking the power of gans for fast large-scale text-to-image synthesis</title>
+		<author>
+			<persName coords=""><forename type="first">Axel</forename><surname>Sauer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tero</forename><surname>Karras</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Samuli</forename><surname>Laine</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Geiger</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Timo</forename><surname>Aila</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="11,200.48,222.82,40.68,7.72">Proc. ICML</title>
+		<meeting>ICML</meeting>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page">14</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,245.99,216.33,7.77;11,70.03,256.95,216.64,7.77;11,70.03,267.90,192.26,7.77" xml:id="b59">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Juergen</forename><surname>Schmidhuber</surname></persName>
+		</author>
+		<title level="m" coord="11,154.89,245.99,131.47,7.77;11,70.03,256.95,216.64,7.77;11,70.03,267.90,133.74,7.77">Generative adversarial networks are special cases of artificial curiosity (1990) and also closely related to predictability minimization</title>
+		<imprint>
+			<date type="published" when="1991">1991. 2020</date>
+			<biblScope unit="page">4</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,279.96,217.45,7.77;11,70.03,290.92,217.45,7.77;11,69.71,301.88,218.23,7.77;11,70.03,312.84,216.33,7.77;11,70.03,323.64,184.88,7.93" xml:id="b60">
+	<analytic>
+		<title level="a" type="main" coord="11,70.03,312.84,216.33,7.77;11,70.03,323.79,104.67,7.77">LAION-5B: An open large-scale dataset for training next generation image-text models</title>
+		<author>
+			<persName coords=""><forename type="first">Christoph</forename><surname>Schuhmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Romain</forename><surname>Beaumont</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Richard</forename><surname>Vencu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Cade</forename><surname>Gordon</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ross</forename><surname>Wightman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mehdi</forename><surname>Cherti</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Theo</forename><surname>Coombes</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Aarush</forename><surname>Katta</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Clayton</forename><surname>Mullis</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mitchell</forename><surname>Wortsman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j" coord="11,191.66,323.64,28.98,7.72">NeurIPS</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,335.85,217.45,7.77;11,70.03,346.81,216.33,7.77;11,69.71,357.77,218.14,7.77;11,70.03,368.57,217.45,7.93;11,70.03,379.68,27.89,7.77" xml:id="b61">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Uriel</forename><surname>Singer</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shelly</forename><surname>Sheynin</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Adam</forename><surname>Polyak</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Oron</forename><surname>Ashual</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Iurii</forename><surname>Makarov</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Filippos</forename><surname>Kokkinos</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Naman</forename><surname>Goyal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andrea</forename><surname>Vedaldi</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Devi</forename><surname>Parikh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Justin</forename><surname>Johnson</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2301.11280</idno>
+		<idno>. 3</idno>
+		<title level="m" coord="11,234.54,357.77,53.31,7.77;11,70.03,368.73,85.05,7.77">Text-to-4d dynamic scene generation</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="11,70.03,391.74,217.82,7.77;11,70.03,402.70,216.33,7.77;11,70.03,413.51,217.45,7.93;11,70.03,424.62,81.69,7.77" xml:id="b62">
+	<monogr>
+		<title level="m" type="main" coord="11,214.72,402.70,71.65,7.77;11,70.03,413.66,178.94,7.77">Deep unsupervised learning using nonequilibrium thermodynamics</title>
+		<author>
+			<persName coords=""><forename type="first">Jascha</forename><surname>Narain Sohl-Dickstein</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Eric</forename><forename type="middle">A</forename><surname>Weiss</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Niru</forename><surname>Maheswaranathan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Surya</forename><surname>Ganguli</surname></persName>
+		</author>
+		<idno>ArXiv, abs/1503.03585</idno>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,436.67,216.33,7.77;11,70.03,447.48,216.33,7.93;11,69.78,458.44,124.94,7.93" xml:id="b63">
+	<analytic>
+		<title level="a" type="main" coord="11,250.24,436.67,36.12,7.77;11,70.03,447.63,91.58,7.77">Denoising diffusion implicit models</title>
+		<author>
+			<persName coords=""><forename type="first">Jiaming</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chenlin</forename><surname>Meng</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stefano</forename><surname>Ermon</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="11,181.40,447.48,104.96,7.72;11,69.78,458.44,91.08,7.72">International Conference on Learning Representations</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,470.64,217.90,7.77;11,70.03,481.60,217.90,7.77;11,70.03,492.56,217.82,7.77;11,70.03,503.37,160.63,7.93" xml:id="b64">
+	<monogr>
+		<title level="m" type="main" coord="11,70.03,492.56,217.82,7.77;11,70.03,503.52,46.65,7.77">Score-based generative modeling through stochastic differential equations</title>
+		<author>
+			<persName coords=""><forename type="first">Yang</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jascha</forename><surname>Narain Sohl-Dickstein</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Diederik</forename><forename type="middle">P</forename><surname>Kingma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Abhishek</forename><surname>Kumar</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stefano</forename><surname>Ermon</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Poole</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2011.13456</idno>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,515.57,217.90,7.77;11,70.03,526.38,216.33,7.93;11,69.78,537.34,65.25,7.93" xml:id="b65">
+	<analytic>
+		<title level="a" type="main" coord="11,70.03,526.53,68.46,7.77">Consistency models</title>
+		<author>
+			<persName coords=""><forename type="first">Yang</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Prafulla</forename><surname>Dhariwal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mark</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ilya</forename><surname>Sutskever</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="11,154.43,526.38,131.93,7.72;11,69.78,537.34,31.22,7.72">International Conference on Machine Learning</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,549.55,217.45,7.77;11,70.03,560.51,217.82,7.77;11,70.03,571.46,217.90,7.77;11,70.03,582.42,216.33,7.77;11,70.03,593.23,216.33,7.93;11,70.03,604.19,111.32,7.93" xml:id="b66">
+	<monogr>
+		<title level="m" type="main" coord="11,70.03,582.42,216.33,7.77;11,70.03,593.38,153.36,7.77">Exposing flaws of generative model evaluation metrics and their unfair treatment of diffusion models</title>
+		<author>
+			<persName coords=""><forename type="first">George</forename><surname>Stein</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jesse</forename><forename type="middle">C</forename><surname>Cresswell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Rasa</forename><surname>Hosseinzadeh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yi</forename><surname>Sui</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Brendan</forename><forename type="middle">Leigh</forename><surname>Ross</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Valentin</forename><surname>Villecroze</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zhaoyan</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Anthony</forename><forename type="middle">L</forename><surname>Caterini</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">J</forename><surname>Eric</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">T</forename><surname>Taylor</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Gabriel</forename><surname>Loaiza-Ganem</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2306.04675</idno>
+		<idno>. 6</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">14</biblScope>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="11,70.03,616.40,217.45,7.77;11,70.03,627.35,216.33,7.77;11,70.03,638.16,217.82,7.93;11,70.03,649.12,216.33,7.72;11,69.75,660.08,189.46,7.93" xml:id="b67">
+	<analytic>
+		<title level="a" type="main" coord="11,167.09,627.35,119.27,7.77;11,70.03,638.31,169.63,7.77">Score jacobian chaining: Lifting pretrained 2d diffusion models for 3d generation</title>
+		<author>
+			<persName coords=""><forename type="first">Haochen</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xiaodan</forename><surname>Du</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jiahao</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Raymond</forename><forename type="middle">A</forename><surname>Yeh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Greg</forename><surname>Shakhnarovich</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="11,256.02,638.16,31.83,7.72;11,70.03,649.12,216.33,7.72;11,69.75,660.08,70.12,7.72">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</title>
+		<meeting>the IEEE/CVF Conference on Computer Vision and Pattern Recognition</meeting>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page">5</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,70.03,672.29,216.33,7.77;11,70.03,683.24,216.33,7.77;11,70.03,694.20,217.82,7.77;11,70.03,705.01,126.51,7.93" xml:id="b68">
+	<monogr>
+		<title level="m" type="main" coord="11,166.16,683.24,120.20,7.77;11,70.03,694.20,217.82,7.77;11,70.03,705.16,12.95,7.77">Prolificdreamer: High-fidelity and diverse text-to-3d generation with variational score distillation</title>
+		<author>
+			<persName coords=""><forename type="first">Zhengyi</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Cheng</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yikai</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Fan</forename><surname>Bao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chongxuan</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hang</forename><surname>Su</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jun</forename><surname>Zhu</surname></persName>
+		</author>
+		<idno>ArXiv, abs/2305.16213</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,328.78,76.13,216.33,7.77;11,328.78,87.08,216.33,7.77;11,328.78,97.89,165.48,7.93" xml:id="b69">
+	<monogr>
+		<title level="m" type="main" coord="11,513.31,76.13,31.80,7.77;11,328.78,87.08,216.33,7.77;11,328.78,98.04,14.91,7.77">Tackling the generative learning trilemma with denoising diffusion gans</title>
+		<author>
+			<persName coords=""><forename type="first">Zhisheng</forename><surname>Xiao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Karsten</forename><surname>Kreis</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Arash</forename><surname>Vahdat</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2112.07804</idno>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="11,328.78,110.00,217.82,7.77;11,328.78,120.96,216.33,7.77;11,328.56,131.76,216.92,7.93" xml:id="b70">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Yanwu</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yang</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zhisheng</forename><surname>Xiao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tingbo</forename><surname>Hou</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2311.09257</idno>
+		<idno>2023. 7</idno>
+		<title level="m" coord="11,530.01,110.00,16.59,7.77;11,328.78,120.96,216.33,7.77;11,328.56,131.92,61.40,7.77">Ufogen: You forward once large scale text-to-image generation via diffusion gans</title>
+		<imprint/>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="11,328.78,143.87,217.45,7.77;11,328.78,154.83,217.90,7.77;11,328.46,165.79,216.96,7.77;11,328.46,176.60,217.77,7.93;11,328.78,187.71,27.89,7.77" xml:id="b71">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Chun-Han</forename><surname>Yao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Amit</forename><surname>Raj</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Wei-Chih</forename><surname>Hung</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuanzhen</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Michael</forename><surname>Rubinstein</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ming-Hsuan</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Varun</forename><surname>Jampani</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2306.04619</idno>
+		<idno>. 4</idno>
+		<title level="m" coord="11,328.46,165.79,216.96,7.77;11,328.46,176.75,82.44,7.77">Artic3d: Learning robust articulated 3d shapes from noisy web image collections</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="11,328.78,199.66,216.33,7.77;11,328.78,210.62,216.33,7.77;11,328.26,221.58,216.85,7.77;11,328.78,232.54,216.33,7.77;11,328.36,243.50,218.24,7.77;11,328.78,254.46,98.85,7.77" xml:id="b72">
+	<monogr>
+		<title level="m" type="main" coord="11,346.99,243.50,199.61,7.77;11,328.78,254.46,60.60,7.77">Scaling autoregressive models for content-rich text-toimage generation</title>
+		<author>
+			<persName coords=""><forename type="first">Jiahui</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuanzhong</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jing</forename><surname>Yu Koh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Thang</forename><surname>Luong</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Gunjan</forename><surname>Baid</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zirui</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Vijay</forename><surname>Vasudevan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alexander</forename><surname>Ku</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yinfei</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Burcu</forename><surname>Karagol Ayan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ben</forename><surname>Hutchinson</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Wei</forename><surname>Han</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zarana</forename><surname>Parekh</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Xin</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Han</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jason</forename><surname>Baldridge</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yonghui</forename><surname>Wu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page">12</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="11,328.78,266.41,217.82,7.77;11,328.78,277.22,216.33,7.93;11,328.78,288.18,90.16,7.93" xml:id="b73">
+	<monogr>
+		<title level="m" type="main" coord="11,468.88,266.41,77.73,7.77;11,328.78,277.37,154.11,7.77">Fast sampling of diffusion models with exponential integrator</title>
+		<author>
+			<persName coords=""><forename type="first">Qinsheng</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yongxin</forename><surname>Chen</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2204.13902</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

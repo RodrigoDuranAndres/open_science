@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main" coord="1,108.43,82.34,359.03,14.93;1,108.43,102.27,186.65,14.93">LCM-LORA: A UNIVERSAL STABLE-DIFFUSION ACCELERATION MODULE</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+				<date type="published" when="2023-11-09">9 Nov 2023</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName coords="1,113.98,137.70,49.55,8.96;1,163.53,136.20,2.08,6.12"><forename type="first">Simian</forename><surname>Luo</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">IIIS</orgName>
+								<orgName type="institution">Tsinghua University</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,186.90,137.70,42.18,8.96;1,229.08,136.20,1.36,6.12"><forename type="first">Yiqin</forename><surname>Tan</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">IIIS</orgName>
+								<orgName type="institution">Tsinghua University</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,253.35,137.70,46.12,8.96;1,299.47,136.20,2.50,6.12"><forename type="first">Suraj</forename><surname>Patil</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">Hugging Face</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,322.41,137.70,43.46,8.96;1,365.87,136.20,1.83,6.12"><forename type="first">Daniel</forename><surname>Gu</surname></persName>
+						</author>
+						<author>
+							<persName coords="1,380.81,137.70,78.94,8.96"><forename type="first">Patrick</forename><surname>Von Platen</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">Hugging Face</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,113.98,149.10,75.76,8.96"><forename type="first">Apolinário</forename><surname>Passos</surname></persName>
+							<email>apolinario@huggingface.codgu8957@gmail.comlongbohuang</email>
+							<affiliation key="aff1">
+								<orgName type="institution">Hugging Face</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,206.67,149.10,63.95,8.96"><forename type="first">Longbo</forename><surname>Huang</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">IIIS</orgName>
+								<orgName type="institution">Tsinghua University</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,287.54,149.10,30.18,8.96"><forename type="first">Jian</forename><surname>Li</surname></persName>
+							<email>lijian83@tsinghua.edu.cn</email>
+							<affiliation key="aff0">
+								<orgName type="department">IIIS</orgName>
+								<orgName type="institution">Tsinghua University</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName coords="1,334.64,149.10,47.89,8.96"><forename type="first">Hang</forename><surname>Zhao</surname></persName>
+							<email>hangzhao@tsinghua.edu.cn</email>
+							<affiliation key="aff0">
+								<orgName type="department">IIIS</orgName>
+								<orgName type="institution">Tsinghua University</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main" coord="1,108.43,82.34,359.03,14.93;1,108.43,102.27,186.65,14.93">LCM-LORA: A UNIVERSAL STABLE-DIFFUSION ACCELERATION MODULE</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2023-11-09">9 Nov 2023</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">2FD93BCB533A6C36356FF5B570F65335</idno>
+					<idno type="arXiv">arXiv:2311.05556v1[cs.CV]</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-02-11T17:56+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Latent Consistency Models (LCMs) (Luo et al., 2023) have achieved impressive performance in accelerating text-to-image generative tasks, producing highquality images with minimal inference steps. LCMs are distilled from pretrained latent diffusion models (LDMs), requiring only ∼32 A100 GPU training hours. This report further extends LCMs' potential in two aspects: First, by applying LoRA distillation to Stable-Diffusion models including SD-V1.5 (Rombach et al., 2022), SSD-1B (Segmind., 2023), and SDXL (Podell et al., 2023), we have expanded LCM's scope to larger models with significantly less memory consumption, achieving superior image generation quality. Second, we identify the LoRA parameters obtained through LCM distillation as a universal Stable-Diffusion acceleration module, named LCM-LoRA. LCM-LoRA can be directly plugged into various Stable-Diffusion fine-tuned models or LoRAs without training, thus representing a universally applicable accelerator for diverse image generation tasks. Compared with previous numerical PF-ODE solvers such as DDIM (Song et al., 2020), DPM-Solver (Lu et al., 2022a;b), LCM-LoRA can be viewed as a plug-in neural PF-ODE solver that possesses strong generalization abilities. Project page: https://github.com/luosiallen/ latent-consistency-model.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<facsimile>
+		<surface n="1" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="2" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="3" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="4" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="5" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="6" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+		<surface n="7" ulx="0.0" uly="0.0" lrx="612.0" lry="792.0"/>
+	</facsimile>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">INTRODUCTION</head><p>Latent Diffusion Models (LDMs) <ref type="bibr" coords="2,248.14,109.97,94.77,8.64" target="#b11">(Rombach et al., 2022)</ref> have been pivotal in generating highly detailed and creative imagery from various inputs such as text and sketches. Despite their success, the slow reverse sampling process inherent to LDMs hampers real-time application, compromising the user experience. Current open-source models and acceleration techniques have yet to bridge the gap to real-time generation on standard consumer GPUs. Efforts to accelerate LDMs generally fall into two categories: the first involves advanced ODE-Solvers, like DDIM <ref type="bibr" coords="2,400.84,164.76,71.61,8.64" target="#b14">(Song et al., 2020)</ref>, DPM-Solver <ref type="bibr" coords="2,136.52,175.72,69.39,8.64">(Lu et al., 2022a)</ref> and DPM-Solver++ <ref type="bibr" coords="2,290.28,175.72,68.06,8.64">(Lu et al., 2022b)</ref>, to expedite the generation process.</p><p>The second strategy involves distillation of LDMs to streamline their functioning. The ODE-Solver methods, despite reducing the number of inference steps needed, still demand a significant computational overhead, especially when incorporating classifier-free guidance <ref type="bibr" coords="2,405.77,208.60,93.94,8.64" target="#b1">(Ho &amp; Salimans, 2022)</ref>.</p><p>Meanwhile, distillation methods such as Guided-Distill <ref type="bibr" coords="2,336.94,219.56,77.80,8.64" target="#b8">(Meng et al., 2023)</ref>, although promising, face practical limitations due to their intensive computational requirements. The quest for a balance between speed and quality in LDM-generated imagery continues to be a challenge in the field.</p><p>Recently, Latent Consistency Models (LCMs) <ref type="bibr" coords="2,294.02,258.41,69.63,8.64" target="#b7">(Luo et al., 2023)</ref> have emerged, inspired by Consistency Models (CMs) <ref type="bibr" coords="2,193.79,269.37,73.07,8.64" target="#b15">(Song et al., 2023)</ref>, as a solution to the slow sampling issue in image generation. LCMs approach the reverse diffusion process by treating it as an augmented probability flow ODE (PF-ODE) problem. They innovatively predict the solution in the latent space, bypassing the need for iterative solutions through numerical ODE-Solvers. This results in a remarkably efficient synthesis of high-resolution images, taking only 1 to 4 inference steps. Additionally, LCMs stand out in terms of distillation efficiency, requiring merely 32 A100 training hours for a minimal-step inference.</p><p>Building on this, Latent Consistency Finetuning (LCF) <ref type="bibr" coords="2,336.58,352.06,72.48,8.64" target="#b7">(Luo et al., 2023)</ref> has been developed as a method to fine-tune pre-trained LCMs without starting from the teacher diffusion model. For specialized datasets-like those for anime, photo-realistic, or fantasy images-additional steps are necessary, such as employing Latent Consistency Distillation (LCD) <ref type="bibr" coords="2,393.03,384.94,73.09,8.64" target="#b7">(Luo et al., 2023)</ref> to distill a pre-trained LDM into an LCM or directly fine-tuning an LCM using LCF. However, this extra training can be a barrier to the quick deployment of LCMs across diverse datasets, posing the critical question of whether fast, training-free inference on custom datasets is attainable.</p><p>To answer the above question, we introduce LCM-LoRA, a universal training-free acceleration module that can be directly plugged into various Stable-Diffusion (SD) <ref type="bibr" coords="2,392.06,445.71,91.29,8.64" target="#b11">(Rombach et al., 2022)</ref> finetuned models or SD LoRAs <ref type="bibr" coords="2,218.86,456.67,64.18,8.64" target="#b3">(Hu et al., 2021)</ref> to support fast inference with minimal steps. Compared to earlier numerical probability flow ODE (PF-ODE) solvers such as DDIM <ref type="bibr" coords="2,424.45,467.63,75.26,8.64" target="#b14">(Song et al., 2020)</ref>, DPM-Solver <ref type="bibr" coords="2,162.26,478.59,70.06,8.64">(Lu et al., 2022a)</ref>, and DPM-Solver++ <ref type="bibr" coords="2,323.73,478.59,70.55,8.64">(Lu et al., 2022b)</ref>, LCM-LoRA represents a novel class of neural network-based PF-ODE solvers module. It demonstrates robust generalization capabilities across various fine-tuned SD models and LoRAs.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">RELATED WORK</head><p>Consistency Models Song et al. ( <ref type="formula" coords="2,253.42,555.64,17.71,8.64">2023</ref>) have showcased the remarkable potential of consistency models (CMs), a novel class of generative models that enhance sampling efficiency without sacrificing the quality of the output. These models employ a consistency mapping technique that deftly maps points along the Ordinary Differential Equation (ODE) trajectory to their origins, thus enabling expeditious one-step generation. Their research specifically targets image generation tasks on ImageNet 64x64 <ref type="bibr" coords="2,190.12,610.43,75.48,8.64" target="#b0">(Deng et al., 2009)</ref> and LSUN 256x256 <ref type="bibr" coords="2,351.49,610.43,63.17,8.64" target="#b16">(Yu et al., 2015)</ref>, demonstrating CMs' effectiveness in these domains. Further advancing the field, <ref type="bibr" coords="2,351.87,621.39,68.45,8.64" target="#b7">Luo et al. (2023)</ref> has pioneered latent consistency models (LCMs) within the text-to-image synthesis landscape. By viewing the guided reverse diffusion process as the resolution of an augmented Probability Flow ODE (PF-ODE), LCMs adeptly predict the solution of such ODEs in latent space. This innovative approach significantly reduces the need for iterative steps, thereby enabling the rapid generation of high-fidelity images from text inputs and setting a new standard for state-of-the-art performance on LAION-5B-Aesthetics dataset <ref type="bibr" coords="2,138.16,687.14,98.65,8.64" target="#b12">(Schuhmann et al., 2022)</ref>.</p><p>Parameter-Efficient Fine-Tuning Parameter-Efficient Fine-Tuning (PEFT) <ref type="bibr" coords="2,418.62,712.42,85.38,8.64" target="#b2">(Houlsby et al., 2019)</ref> enables the customization of pre-existing models for particular tasks while limiting the number of parameters that need retraining. This reduces both computational load and storage demands. Among the assorted techniques under the PEFT umbrella, Low-Rank Adaptation (LoRA) <ref type="bibr" coords="3,437.54,96.30,66.46,8.64" target="#b3">(Hu et al., 2021)</ref> stands out. LoRA's strategy involves training a minimal set of parameters through the integration of low-rank matrices, which succinctly represent the required adjustments in the model's weights for fine-tuning. In practice, this means that during task-specific optimization, only these matrices are learned and the bulk of pre-trained weights are left unchanged. Consequently, LoRA significantly trims the volume of parameters to be modified, thereby enhancing computational efficiency and permitting model refinement with considerably less data.</p><p>Task Arithmetic in Pretrained Models Task arithmetic <ref type="bibr" coords="3,341.59,185.69,80.10,8.64" target="#b4">(Ilharco et al., 2022;</ref><ref type="bibr" coords="3,423.86,185.69,80.14,8.64;3,108.00,196.65,22.69,8.64" target="#b9">Ortiz-Jimenez et al., 2023;</ref><ref type="bibr" coords="3,133.96,196.65,77.88,8.64" target="#b17">Zhang et al., 2023)</ref> has become a notable method for enhancing the abilities of pre-trained models, offering a cost-effective and scalable strategy for direct edits in weight space. By applying fine-tuned weights of different tasks to a model, researchers can improve its performance on these tasks or induce forgetting by negating them. Despite its promise, the understanding of task arithmetic's full potential and the principles that underlie it remain areas of active exploration.</p><p>3 LCM-LORA</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">LORA DISTILLATION FOR LCM</head><p>The Latent Consistency Model (LCM) <ref type="bibr" coords="3,268.31,313.52,71.93,8.64" target="#b7">(Luo et al., 2023)</ref> is trained using a one-stage guided distillation method, leveraging a pre-trained auto-encoder's latent space to distill a guided diffusion model into an LCM. This process involves solving an augmented Probability Flow ODE (PF-ODE), a mathematical formulation that ensures the generated samples follow a trajectory that results in high-quality images. The distillation focuses on maintaining the fidelity of these trajectories while significantly reducing the number of required sampling steps. The method includes innovations like the Skipping-Steps technique to quicken convergence. The pseudo-code of LCD is provided in Algorithm 1.</p><p>Algorithm 1 Latent Consistency Distillation (LCD) <ref type="bibr" coords="3,317.61,414.94,69.45,8.64" target="#b7">(Luo et al., 2023)</ref> Input: dataset D, initial model parameter θ, learning rate η, ODE solver Ψ( </p><formula xml:id="formula_0" coords="3,116.97,448.47,287.58,104.94">Dz = {(z, c)|z = E(x), (x, c) ∈ D} θ -← θ repeat Sample (z, c) ∼ Dz, n ∼ U [1, N -k] and ω ∼ [ωmin, ωmax] Sample zt n+k ∼ N (α(t n+k )z; σ 2 (t n+k )I) ẑΨ,ω tn ← zt n+k + (1 + ω)Ψ(zt n+k , t n+k , tn, c) -ωΨ(zt n+k , t n+k , tn, ∅) L(θ, θ -; Ψ) ← d(f θ (zt n+k , ω, c, t n+k ), f θ -( ẑΨ,ω tn , ω, c, tn)) θ ← θ -η∇ θ L(θ, θ -) θ -← stopgrad(µθ -+ (1 -µ)θ) until convergence</formula><p>Since the distillation process of Latent Consistency Models (LCM) is carried out on top of the parameters from a pre-trained diffusion model, we can consider latent consistency distillation as a fine-tuning process for the diffusion model. This allows us to employ parameter-efficient finetuning methods, such as LoRA (Low-Rank Adaptation) <ref type="bibr" coords="3,339.78,611.04,67.03,8.64" target="#b3">(Hu et al., 2021)</ref>. LoRA updates a pretrained weight matrix by applying a low-rank decomposition. Given a weight matrix W 0 ∈ R d×k , the update is expressed as W 0 + ∆W = W 0 + BA, where B ∈ R d×r , A ∈ R r×k , and the rank r ≤ min(d, k). During training, W 0 is kept constant, and gradient updates are applied only to A and B. The modified forward pass for an input x is:</p><formula xml:id="formula_1" coords="3,233.71,672.37,270.29,9.65">h = W 0 x + ∆W x = W 0 x + BAx.<label>(1)</label></formula><p>In this equation, h represents the output vector, and the outputs of W 0 and ∆W = BA are added together after being multiplied by the input x. By decomposing the full parameter matrix into the product of two low-rank matrices, LoRA significantly reduces the number of trainable parameters, thereby lowering memory usage. Table <ref type="table" coords="3,274.46,723.38,4.15,8.64">3</ref>.1 compares the total number of parameters in the full Table <ref type="table" coords="4,132.07,502.26,3.88,8.64">1</ref>: Full parameter number and trainable parameter number with LoRA for SD-V1.5 <ref type="bibr" coords="4,462.50,502.26,41.50,8.64;4,108.00,513.22,45.79,8.64" target="#b11">(Rombach et al., 2022)</ref>, SSD-1B <ref type="bibr" coords="4,196.28,513.22,69.31,8.64" target="#b13">(Segmind., 2023)</ref> and SDXL <ref type="bibr" coords="4,313.46,513.22,77.07,8.64" target="#b10">(Podell et al., 2023)</ref>. <ref type="bibr" coords="4,108.00,545.07,66.73,8.64" target="#b7">Luo et al. (2023)</ref> primarily distilled the base stable diffusion model, such as SD-V1.5 and SD-V2.1. We extended this distillation process to more powerful models with enhanced text-to-image capabilities and larger parameter counts, including SDXL <ref type="bibr" coords="4,324.45,566.99,79.88,8.64" target="#b10">(Podell et al., 2023)</ref> and SSD-1B <ref type="bibr" coords="4,460.43,566.99,43.58,8.64;4,108.00,577.95,21.44,8.64" target="#b13">(Segmind., 2023)</ref>. Our experiments demonstrate that the LCD paradigm adapts well to larger models. The generated results of different models are displayed in Figure <ref type="figure" coords="4,350.40,588.91,3.74,8.64" target="#fig_2">2</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">LCM-LORA AS UNIVERSAL ACCELERATIION MODULE</head><p>Based on parameter-efficient fine-tuning techniques, such as LoRA, one can fine-tune pretrained models with substantially reduced memory requirements. Within the framework of LoRA, the resultant LoRA parameters can be seamlessly integrated into the original model parameters. In Section 3.1, we demonstrate the feasibility of employing LoRA for the distillation process of Latent Consistency Models (LCMs). On the other hand, one can fine-tune on customized datasets for specific task-oriented applications. There is now a broad array of fine-tuning parameters available for selection and utilization. We discover that the LCM-LoRA parameters can be directly combined with other LoRA parameters fine-tuned on datasets of particular styles. </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0" coords="1,291.63,554.47,47.15,8.09;1,387.75,516.12,63.99,7.02;1,441.49,514.60,1.71,4.28;1,166.97,591.78,45.63,6.84;1,268.46,584.35,39.59,5.85;1,212.32,553.45,38.11,5.85;1,191.29,496.04,17.23,6.50;1,226.10,496.04,14.36,6.50;1,358.45,612.72,17.23,6.50;1,393.26,612.72,14.36,6.50;1,388.96,494.53,17.23,6.50;1,423.77,494.53,14.36,6.50;1,154.84,612.72,17.23,6.50;1,189.64,612.72,14.36,6.50"><head>=</head><label></label><figDesc>𝝀 𝟏 𝝉 $ + 𝝀 𝟐 𝝉 𝐋𝐂𝐌 Customized LCM 𝜽 !"</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1" coords="1,108.00,632.36,396.00,8.64;1,108.00,642.97,396.00,7.77;1,108.00,652.93,396.00,7.77;1,108.00,662.89,396.00,7.77;1,108.00,672.85,396.00,7.77;1,108.00,682.82,396.00,7.77;1,108.00,692.78,70.99,7.77"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Overview of LCM-LoRA. By introducing LoRA into the distillation process of LCM, we significantly reduce the memory overhead of distillation, which allows us to train larger models, e.g., SDXL and SSD-1B, with limited resources. More importantly, LoRA parameters obtained through LCM-LoRA training ('acceleration vector') can be directly combined with other LoRA parameters ('style vetcor') obtained by finetuning on a particular style dataset. Without any training, the model obtained by a linear combination of the acceleration vector and style vetcor acquires the ability to generate images of a specific painting style in minimal sampling steps.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2" coords="4,108.00,346.98,396.00,8.64;4,108.00,357.59,396.00,7.77;4,108.00,367.26,396.00,8.06;4,108.00,377.51,317.58,7.77"><head>Figure 2 :</head><label>2</label><figDesc>Figure2: Images generated using latent consistency models distilled from different pretrained diffusion models. We generate 512×512 resolution images with LCM-LoRA-SD-V1.5 and 1024×1024 resolution images with LCM-LoRA-SDXL and LCM-LoRA-SSD-1B. We use a fixed classifier-free guidance scale ω = 7.5 for all models during the distillation process. All images were obtained by 4-step sampling .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" coords="4,108.00,712.42,396.00,19.60"><head></head><label></label><figDesc>Such an amalgamation yields a model capable of generating images in specific styles with minimal sampling steps, without with Yiqin Tan, primarily completed this technical report. Yiqin Tan discovered the arithmetic property of LCM parameters. Suraj Patil first completed the training of LCM-LoRA, discovering its strong generalization abilities, and conducted most of the training. Suraj Patil and Daniel Gu conducted excellent refactoring of the original LCM-SDXL codebase and improved training efficiency, seamlessly integrating it into the Diffusers library. Patrick von Platen revised and polished this technical report, as well as integrating LCM into the Diffusers library. Longbo Huang, Jian Li, Hang Zhao co-advised the original LCMs paper, and polished this technical report. We further thanks Apolinário Passos and Patrick von Platen for making excellent LCMs demo and deployment. We also want to thank Sayak Paul and Pedro Cuenca for helping with writing documentation as well as Radamés Ajna for creating demos. We appreciate the computing resources provided by the Hugging Face Diffusers teams to support our experiments. Finally, we value the insightful discussions from LCM community members.</figDesc><table /></figure>
+		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>the need for any further training. As shown in Figure <ref type="figure" coords="5,325.27,442.82,3.74,8.64">1</ref>, denote the LCM-LoRA fine-tuned parameters as τ LCM , which is identified as the "acceleration vector", and the LoRA parameters fine-tuned on customized dataset as τ ′ , which is the "style vector", we find that an LCM which generates customized images can be obtained as</p><p>where τ ′ LCM = λ 1 τ ′ + λ 2 τ LCM (3) is the linear combination of acceleration vector τ LCM and style vector τ ′ . Here λ 1 and λ 2 are hyperparameters. The generation results of the specific style LoRA parameters and their combination with LCM-LoRA parameters are shown in Figure <ref type="figure" coords="5,311.08,554.01,3.74,8.64">3</ref>. Note that we do not make further training on the combined parameters.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">CONCLUSION</head><p>We present LCM-LoRA, a universal training-free acceleration module for Stable-Diffusion (SD). LCM-LoRA can serve as an independent and efficient neural network-based solver module to predict the solution of PF-ODE, enabling fast inference with minimal steps on various finetuned SD models and SD LoRAs. Extensive experiments on text-to-image generation have demonstrated LCM-LoRA's strong generalization capabilities and superiority.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">CONTRIBUTION &amp; ACKNOWLEDGEMENT</head><p>This work builds upon Simian Luo and Yiqin Tan's Latent Consistency Models (LCMs) <ref type="bibr" coords="5,460.34,712.42,43.67,8.64;5,108.00,723.38,21.44,8.64" target="#b7">(Luo et al., 2023)</ref>. Based on LCMs, Simian Luo wrote the original LCM-SDXL distillation code, and together</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct coords="6,108.00,254.92,396.00,8.64;6,117.96,265.70,386.04,8.82;6,117.96,276.84,98.78,8.64" xml:id="b0">
+	<analytic>
+		<title level="a" type="main" coord="6,394.53,254.92,109.47,8.64;6,117.96,265.88,101.07,8.64">Imagenet: A large-scale hierarchical image database</title>
+		<author>
+			<persName coords=""><forename type="first">Jia</forename><surname>Deng</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Wei</forename><surname>Dong</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Richard</forename><surname>Socher</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Li-Jia</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kai</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Li</forename><surname>Fei-Fei</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="6,259.41,265.70,240.59,8.59">IEEE conference on computer vision and pattern recognition</title>
+		<imprint>
+			<publisher>Ieee</publisher>
+			<date type="published" when="2009">2009. 2009</date>
+			<biblScope unit="page" from="248" to="255" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="6,108.00,298.51,147.90,8.64;6,276.04,298.51,145.74,8.64;6,441.91,298.33,62.09,8.59;6,117.96,309.29,100.17,8.82" xml:id="b1">
+	<analytic>
+		<title level="a" type="main" coord="6,276.04,298.51,141.47,8.64">Preprint repository arXiv achieves milestone million uploads</title>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Salimans</surname></persName>
+		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
+		<idno type="arXiv">arXiv:2207.12598</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<publisher>AIP Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,331.13,396.00,8.64;6,117.96,342.09,386.04,8.64;6,117.96,352.87,324.36,8.82" xml:id="b2">
+	<analytic>
+		<title level="a" type="main" coord="6,329.34,342.09,170.86,8.64">Parameter-efficient transfer learning for nlp</title>
+		<author>
+			<persName coords=""><forename type="first">Neil</forename><surname>Houlsby</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andrei</forename><surname>Giurgiu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stanislaw</forename><surname>Jastrzebski</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Bruna</forename><surname>Morrone</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Quentin</forename><surname>De Laroussilhe</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andrea</forename><surname>Gesmundo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mona</forename><surname>Attariyan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Sylvain</forename><surname>Gelly</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m" coord="6,128.75,352.87,187.46,8.59">International Conference on Machine Learning</title>
+		<imprint>
+			<publisher>PMLR</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="2790" to="2799" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="6,108.00,374.71,396.00,8.64;6,117.96,385.49,386.04,8.82;6,117.96,396.45,100.17,8.82" xml:id="b3">
+	<monogr>
+		<title level="m" type="main" coord="6,206.02,385.67,223.81,8.64">Lora: Low-rank adaptation of large language models</title>
+		<author>
+			<persName coords=""><forename type="first">J</forename><surname>Edward</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yelong</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Phillip</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zeyuan</forename><surname>Wallis</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuanzhi</forename><surname>Allen-Zhu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shean</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Lu</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Weizhu</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><surname>Chen</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2106.09685</idno>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,418.30,396.00,8.64;6,117.96,429.08,386.03,8.82;6,117.96,440.04,100.17,8.82" xml:id="b4">
+	<monogr>
+		<title level="m" type="main" coord="6,285.56,429.26,147.27,8.64">Editing models with task arithmetic</title>
+		<author>
+			<persName coords=""><forename type="first">Gabriel</forename><surname>Ilharco</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Marco</forename><surname>Tulio Ribeiro</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mitchell</forename><surname>Wortsman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Suchin</forename><surname>Gururangan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ludwig</forename><surname>Schmidt</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hannaneh</forename><surname>Hajishirzi</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ali</forename><surname>Farhadi</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2212.04089</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,461.88,396.00,8.64;6,117.96,472.66,386.04,8.82;6,117.96,483.62,104.60,8.82" xml:id="b5">
+	<monogr>
+		<title level="m" type="main" coord="6,440.69,461.88,63.31,8.64;6,117.96,472.84,316.58,8.64">Dpm-solver: A fast ode solver for diffusion probabilistic model sampling in around 10 steps</title>
+		<author>
+			<persName coords=""><forename type="first">Cheng</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuhao</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Fan</forename><surname>Bao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jianfei</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chongxuan</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jun</forename><surname>Zhu</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2206.00927</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,505.46,396.00,8.64;6,117.96,516.24,386.04,8.82;6,117.96,527.38,27.40,8.64" xml:id="b6">
+	<monogr>
+		<title level="m" type="main" coord="6,422.41,505.46,81.59,8.64;6,117.96,516.42,240.85,8.64">Dpm-solver++: Fast solver for guided sampling of diffusion probabilistic models</title>
+		<author>
+			<persName coords=""><forename type="first">Cheng</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yuhao</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Fan</forename><surname>Bao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jianfei</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chongxuan</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jun</forename><surname>Zhu</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2211.01095</idno>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,549.05,396.00,8.64;6,117.96,559.83,379.84,8.82" xml:id="b7">
+	<monogr>
+		<title level="m" type="main" coord="6,362.92,549.05,141.08,8.64;6,117.96,560.00,212.72,8.64">Latent consistency models: Synthesizing high-resolution images with few-step inference</title>
+		<author>
+			<persName coords=""><forename type="first">Simian</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yiqin</forename><surname>Tan</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Longbo</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jian</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Hang</forename><surname>Zhao</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2310.04378</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,581.67,396.00,8.64;6,117.96,592.45,386.03,8.82;6,117.96,603.41,329.24,8.82" xml:id="b8">
+	<analytic>
+		<title level="a" type="main" coord="6,184.62,592.63,171.52,8.64">On Distillation of Guided Diffusion Models</title>
+		<author>
+			<persName coords=""><forename type="first">Chenlin</forename><surname>Meng</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ruiqi</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Diederik</forename><surname>Kingma</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stefano</forename><surname>Ermon</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonathan</forename><surname>Ho</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Salimans</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52729.2023.01374</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="6,380.29,592.45,123.70,8.59;6,117.96,603.41,225.40,8.59">2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2023-06">2023</date>
+			<biblScope unit="page" from="14297" to="14306" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="6,108.00,625.25,396.00,8.64;6,117.96,636.03,350.50,8.82" xml:id="b9">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Guillermo</forename><surname>Ortiz-Jimenez</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Alessandro</forename><surname>Favero</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Pascal</forename><surname>Frossard</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2305.12827</idno>
+		<title level="m" coord="6,383.36,625.25,120.65,8.64;6,117.96,636.21,182.87,8.64">Task arithmetic in the tangent space: Improved editing of pre-trained models</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,657.88,396.00,8.64;6,117.96,668.83,386.04,8.64;6,117.96,679.61,202.19,8.82" xml:id="b10">
+	<monogr>
+		<title level="m" type="main" coord="6,237.42,668.83,266.58,8.64;6,117.96,679.79,35.12,8.64">Sdxl: improving latent diffusion models for high-resolution image synthesis</title>
+		<author>
+			<persName coords=""><forename type="first">Dustin</forename><surname>Podell</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Zion</forename><surname>English</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Kyle</forename><surname>Lacey</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Blattmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Tim</forename><surname>Dockhorn</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jonas</forename><surname>Müller</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Joe</forename><surname>Penna</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2307.01952</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="6,108.00,701.46,396.00,8.64;6,117.96,712.24,386.03,8.82;6,117.96,723.20,312.63,8.82" xml:id="b11">
+	<analytic>
+		<title level="a" type="main" coord="6,480.76,701.46,23.24,8.64;6,117.96,712.42,220.93,8.64">High-Resolution Image Synthesis with Latent Diffusion Models</title>
+		<author>
+			<persName coords=""><forename type="first">Robin</forename><surname>Rombach</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Andreas</forename><surname>Blattmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Dominik</forename><surname>Lorenz</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Patrick</forename><surname>Esser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bjorn</forename><surname>Ommer</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/cvpr52688.2022.01042</idno>
+	</analytic>
+	<monogr>
+		<title level="m" coord="6,359.75,712.24,144.25,8.59;6,117.96,723.20,208.80,8.59">2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2022-06">2022</date>
+			<biblScope unit="page" from="10684" to="10695" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="7,108.00,85.34,396.00,8.64;7,117.96,96.30,386.04,8.64;7,117.96,107.08,386.03,8.82;7,117.96,118.04,100.17,8.82" xml:id="b12">
+	<monogr>
+		<author>
+			<persName coords=""><forename type="first">Christoph</forename><surname>Schuhmann</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Romain</forename><surname>Beaumont</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Richard</forename><surname>Vencu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Cade</forename><surname>Gordon</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ross</forename><surname>Wightman</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mehdi</forename><surname>Cherti</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Theo</forename><surname>Coombes</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Aarush</forename><surname>Katta</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Clayton</forename><surname>Mullis</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mitchell</forename><surname>Wortsman</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2210.08402</idno>
+		<title level="m" coord="7,464.71,96.30,39.29,8.64;7,117.96,107.26,312.94,8.64">Laion-5b: An open large-scale dataset for training next generation image-text models</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="7,108.00,137.14,37.77,8.64;7,189.24,137.14,92.99,8.64;7,310.24,137.14,193.76,8.64;7,117.96,148.10,246.28,8.64" xml:id="b13">
+	<monogr>
+		<author>
+			<persName coords=""><surname>Segmind</surname></persName>
+		</author>
+		<ptr target="https://blog.segmind.com/introducing-segmind-ssd-1b/" />
+		<title level="m" coord="7,189.24,137.14,92.99,8.64;7,310.24,137.14,189.71,8.64">Announcing ssd-1b: A leap in efficient t2i generation</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct coords="7,108.00,166.85,396.00,8.82;7,117.96,177.81,134.95,8.82" xml:id="b14">
+	<analytic>
+		<title level="a" type="main" coord="7,324.37,167.03,145.58,8.64">Preprint repository arXiv achieves milestone million uploads</title>
+		<author>
+			<persName coords=""><forename type="first">Jiaming</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Chenlin</forename><surname>Meng</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Stefano</forename><surname>Ermon</surname></persName>
+		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
+		<idno type="arXiv">arXiv:2010.02502</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+			<publisher>AIP Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="7,108.00,196.74,395.99,8.82;7,117.96,207.70,100.17,8.82" xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Preprint repository arXiv achieves milestone million uploads</title>
+		<author>
+			<persName coords=""><forename type="first">Yang</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Prafulla</forename><surname>Dhariwal</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Mark</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ilya</forename><surname>Sutskever</surname></persName>
+		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
+		<idno type="arXiv">arXiv:2303.01469</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<publisher>AIP Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="7,108.00,226.81,396.00,8.64;7,117.96,237.59,386.04,8.82;7,117.96,248.55,134.95,8.82" xml:id="b16">
+	<monogr>
+		<title level="m" type="main" coord="7,481.31,226.81,22.69,8.64;7,117.96,237.77,354.91,8.64">Lsun: Construction of a large-scale image dataset using deep learning with humans in the loop</title>
+		<author>
+			<persName coords=""><forename type="first">Fisher</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Ari</forename><surname>Seff</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Yinda</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shuran</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Thomas</forename><surname>Funkhouser</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Jianxiong</forename><surname>Xiao</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1506.03365</idno>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct coords="7,108.00,267.66,396.00,8.64;7,117.96,278.44,270.25,8.82" xml:id="b17">
+	<monogr>
+		<title level="m" type="main" coord="7,343.66,267.66,160.35,8.64;7,117.96,278.61,103.09,8.64">Composing parameter-efficient modules with arithmetic operations</title>
+		<author>
+			<persName coords=""><forename type="first">Jinghan</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Shiqi</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Junteng</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName coords=""><forename type="first">Junxian</forename><surname>He</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2306.14870</idno>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>
