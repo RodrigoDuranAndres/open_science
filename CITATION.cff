@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Rodrigo"
+  given-names: "RodrigoDuranAndres"
+  orcid: "https://orcid.org/0009-0001-1866-8135"
+title: "Open Source Trial"
+version: 0.0.1
+doi: 10.5281/zenodo.10654759
+date-released: 2024-02-13
+url: "https://github.com/RodrigoDuranAndres/open_science/tree/tag-prueba"
