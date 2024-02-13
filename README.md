@@ -18,6 +18,5 @@ Creado para hacer las entregas de la asignatura Open_science_and_AI_2024
 
 # Codigo
 
-Este repossitorio contiene un caso de uso de 
-
->
+Este repssitorio contiene un caso de uso de grobid para el analisis de pdfs.
+En rationale.md se especifica que hace el codigo.
