@@ -13,10 +13,23 @@ intruciones: https://grobid.readthedocs.io/en/latest/Grobid-docker/
 Exponerlo en el puerto predeterminado (8070)
 
 Luego ejecutarlo con el comando:
+```bash
 docker run --rm --init --ulimit core=0 -p 8070:8070 grobid/grobid:0.8.0
+```
 
-Instalar requiremets:
+Para instalar la libreria grobid sigua las instuciones:
+```bash
+git clone https://github.com/kermitt2/grobid_client_python
+cd grobid_client_python
+python3 setup.py install
+```
+Source: https://github.com/kermitt2/grobid_client_python/tree/master
+
+
+Para el resto de librerias instalar requiremets:
+```bash
 pip install -r requirements.txt
+```
 
 Elminar los ficheros contenidos en la carpeta ouput, para que se sobreescriban con tu resultado.
 

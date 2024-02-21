@@ -114,7 +114,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application version="0.8.0" ident="GROBID" when="2024-02-21T17:46+0000">
+				<application version="0.8.0" ident="GROBID" when="2024-02-11T17:57+0000">
 					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
 					<ref target="https://github.com/kermitt2/grobid"/>
 				</application>
@@ -257,7 +257,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 
 <biblStruct coords="9,129.58,244.58,376.07,8.64;9,129.58,255.31,374.42,8.82;9,129.58,266.22,148.77,8.82" xml:id="b2">
 	<analytic>
-		<title level="a" type="main" coord="9,387.66,244.58,117.99,8.64;9,129.58,255.49,154.69,8.64">Piqa: Reasoning about physical commonsense in natural language</title>
+		<title level="a" type="main" coord="9,387.66,244.58,117.99,8.64;9,129.58,255.49,154.69,8.64">PIQA: Reasoning about Physical Commonsense in Natural Language</title>
 		<author>
 			<persName coords=""><forename type="first">Yonatan</forename><surname>Bisk</surname></persName>
 		</author>
@@ -265,18 +265,27 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 			<persName coords=""><forename type="first">Rowan</forename><surname>Zellers</surname></persName>
 		</author>
 		<author>
+			<persName><forename type="first">Ronan</forename><surname>Le Bras</surname></persName>
+		</author>
+		<author>
 			<persName coords=""><forename type="first">Jianfeng</forename><surname>Gao</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Yejin</forename><surname>Choi</surname></persName>
 		</author>
+		<idno type="DOI">10.1609/aaai.v34i05.6239</idno>
 	</analytic>
 	<monogr>
-		<title level="m" coord="9,304.75,255.31,199.25,8.59;9,129.58,266.22,45.12,8.59">Proceedings of the AAAI conference on artificial intelligence</title>
-		<meeting>the AAAI conference on artificial intelligence</meeting>
+		<title level="j">Proceedings of the AAAI Conference on Artificial Intelligence</title>
+		<title level="j" type="abbrev">AAAI</title>
+		<idno type="ISSN">2159-5399</idno>
+		<idno type="ISSNe">2374-3468</idno>
 		<imprint>
-			<date type="published" when="2020">2020</date>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">05</biblScope>
 			<biblScope unit="page" from="7432" to="7439" />
+			<date type="published" when="2020-04-03">2020</date>
+			<publisher>Association for the Advancement of Artificial Intelligence (AAAI)</publisher>
 		</imprint>
 	</monogr>
 </biblStruct>
@@ -323,7 +332,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="9,129.58,319.10,374.42,8.64;9,129.58,329.83,375.67,8.82;9,129.58,340.92,22.42,8.64" xml:id="b4">
-	<monogr>
+	<analytic>
+		<title level="a" type="main">QuAC: Question Answering in Context</title>
 		<author>
 			<persName coords=""><forename type="first">Eunsol</forename><surname>Choi</surname></persName>
 		</author>
@@ -348,9 +358,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Luke</forename><surname>Zettlemoyer</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/d18-1241</idno>
 		<idno type="arXiv">arXiv:1808.07036</idno>
-		<title level="m" coord="9,208.84,330.01,150.46,8.64">Quac: Question answering in context</title>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,208.84,330.01,150.46,8.64">Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing</title>
+		<meeting>the 2018 Conference on Empirical Methods in Natural Language Processing</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2018">2018</date>
 		</imprint>
 	</monogr>
@@ -405,7 +420,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="9,129.58,404.53,374.42,8.64;9,129.58,415.44,376.16,8.64;9,129.58,426.17,159.58,8.82" xml:id="b6">
-	<monogr>
+	<analytic>
+		<title level="a" type="main"></title>
 		<author>
 			<persName coords=""><forename type="first">Christopher</forename><surname>Clark</surname></persName>
 		</author>
@@ -424,9 +440,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Kristina</forename><surname>Toutanova</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/n19-1300</idno>
 		<idno type="arXiv">arXiv:1905.10044</idno>
-		<title level="m" coord="9,216.22,415.44,285.43,8.64">Boolq: Exploring the surprising difficulty of natural yes/no questions</title>
+	</analytic>
+	<monogr>
+		<title level="m" coord="9,216.22,415.44,285.43,8.64">Proceedings of the 2019 Conference of the North</title>
+		<meeting>the 2019 Conference of the North</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2019">2019</date>
 		</imprint>
 	</monogr>
@@ -508,7 +529,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 
 <biblStruct coords="9,129.58,516.31,374.42,8.64;9,129.58,527.21,374.42,8.64;9,129.58,537.95,376.16,8.82;9,129.58,548.85,161.91,8.82" xml:id="b9">
 	<analytic>
-		<title level="a" type="main" coord="9,242.49,527.21,261.52,8.64;9,129.58,538.12,79.55,8.64">Bold: Dataset and metrics for measuring biases in open-ended language generation</title>
+		<title level="a" type="main" coord="9,242.49,527.21,261.52,8.64;9,129.58,538.12,79.55,8.64">BOLD</title>
 		<author>
 			<persName coords=""><forename type="first">Jwala</forename><surname>Dhamala</surname></persName>
 		</author>
@@ -530,37 +551,46 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Rahul</forename><surname>Gupta</surname></persName>
 		</author>
+		<idno type="DOI">10.1145/3442188.3445924</idno>
 	</analytic>
 	<monogr>
-		<title level="m" coord="9,227.62,537.95,278.12,8.59;9,129.58,548.85,67.78,8.59">Proceedings of the 2021 ACM conference on fairness, accountability, and transparency</title>
-		<meeting>the 2021 ACM conference on fairness, accountability, and transparency</meeting>
+		<title level="m" coord="9,227.62,537.95,278.12,8.59;9,129.58,548.85,67.78,8.59">Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency</title>
+		<meeting>the 2021 ACM Conference on Fairness, Accountability, and Transparency</meeting>
 		<imprint>
-			<date type="published" when="2021">2021</date>
+			<publisher>ACM</publisher>
+			<date type="published" when="2021-03">2021</date>
 			<biblScope unit="page" from="862" to="872" />
 		</imprint>
 	</monogr>
 </biblStruct>
 
 <biblStruct coords="9,129.58,564.47,374.42,8.64;9,129.58,575.20,206.36,8.82" xml:id="b10">
-	<monogr>
-		<title level="m" type="main" coord="9,269.32,564.47,234.68,8.64;9,129.58,575.38,39.27,8.64">Fast inference of mixture-of-experts language models with offloading</title>
+	<analytic>
+		<title level="a" type="main" coord="9,269.32,564.47,234.68,8.64;9,129.58,575.38,39.27,8.64">Preprint repository arXiv achieves milestone million uploads</title>
 		<author>
 			<persName coords=""><forename type="first">Artyom</forename><surname>Eliseev</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Denis</forename><surname>Mazur</surname></persName>
 		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
 		<idno type="arXiv">arXiv:2312.17238</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
 		<imprint>
 			<date type="published" when="2023">2023</date>
+			<publisher>AIP Publishing</publisher>
 		</imprint>
 	</monogr>
 	<note type="report_type">arXiv preprint</note>
 </biblStruct>
 
 <biblStruct coords="9,129.58,590.83,376.16,8.64;9,129.58,601.56,159.58,8.82" xml:id="b11">
-	<monogr>
-		<title level="m" type="main" coord="9,305.77,590.83,196.11,8.64">A review of sparse expert models in deep learning</title>
+	<analytic>
+		<title level="a" type="main" coord="9,305.77,590.83,196.11,8.64">Preprint repository arXiv achieves milestone million uploads</title>
 		<author>
 			<persName coords=""><forename type="first">William</forename><surname>Fedus</surname></persName>
 		</author>
@@ -570,9 +600,16 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Barret</forename><surname>Zoph</surname></persName>
 		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
 		<idno type="arXiv">arXiv:2209.01667</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
 		<imprint>
 			<date type="published" when="2022">2022</date>
+			<publisher>AIP Publishing</publisher>
 		</imprint>
 	</monogr>
 	<note type="report_type">arXiv preprint</note>
@@ -681,16 +718,10 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,75.48,374.42,8.64;10,129.39,86.21,374.61,8.82;10,129.58,97.12,100.17,8.82" xml:id="b15">
-	<monogr>
-		<title level="m" type="main" coord="10,209.38,86.39,222.26,8.64">Measuring massive multitask language understanding</title>
+	<analytic>
+		<title level="a" type="main" coord="10,209.38,86.39,222.26,8.64">PixMix: Dreamlike Pictures Comprehensively Improve Safety Measures</title>
 		<author>
 			<persName coords=""><forename type="first">Dan</forename><surname>Hendrycks</surname></persName>
-		</author>
-		<author>
-			<persName coords=""><forename type="first">Collin</forename><surname>Burns</surname></persName>
-		</author>
-		<author>
-			<persName coords=""><forename type="first">Steven</forename><surname>Basart</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Andy</forename><surname>Zou</surname></persName>
@@ -699,13 +730,24 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 			<persName coords=""><forename type="first">Mantas</forename><surname>Mazeika</surname></persName>
 		</author>
 		<author>
+			<persName><forename type="first">Leonard</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bo</forename><surname>Li</surname></persName>
+		</author>
+		<author>
 			<persName coords=""><forename type="first">Dawn</forename><surname>Song</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Jacob</forename><surname>Steinhardt</surname></persName>
 		</author>
+		<idno type="DOI">10.1109/cvpr52688.2022.01628</idno>
 		<idno type="arXiv">arXiv:2009.03300</idno>
+	</analytic>
+	<monogr>
+		<title level="m">2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
 		<imprint>
+			<publisher>IEEE</publisher>
 			<date type="published" when="2020">2020</date>
 		</imprint>
 	</monogr>
@@ -713,35 +755,31 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,112.37,374.42,8.64;10,129.58,123.28,376.16,8.64;10,129.58,134.01,159.58,8.82" xml:id="b16">
-	<monogr>
-		<title level="m" type="main" coord="10,245.74,123.28,256.17,8.64">Measuring mathematical problem solving with the math dataset</title>
+	<analytic>
+		<title level="a" type="main" coord="10,245.74,123.28,256.17,8.64">Natural Adversarial Examples</title>
 		<author>
 			<persName coords=""><forename type="first">Dan</forename><surname>Hendrycks</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Collin</forename><surname>Burns</surname></persName>
-		</author>
-		<author>
-			<persName coords=""><forename type="first">Saurav</forename><surname>Kadavath</surname></persName>
-		</author>
-		<author>
-			<persName coords=""><forename type="first">Akul</forename><surname>Arora</surname></persName>
+			<persName><forename type="first">Kevin</forename><surname>Zhao</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Steven</forename><surname>Basart</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Eric</forename><surname>Tang</surname></persName>
+			<persName coords=""><forename type="first">Jacob</forename><surname>Steinhardt</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Dawn</forename><surname>Song</surname></persName>
 		</author>
-		<author>
-			<persName coords=""><forename type="first">Jacob</forename><surname>Steinhardt</surname></persName>
-		</author>
+		<idno type="DOI">10.1109/cvpr46437.2021.01501</idno>
 		<idno type="arXiv">arXiv:2103.03874</idno>
+	</analytic>
+	<monogr>
+		<title level="m">2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
 		<imprint>
-			<date type="published" when="2021">2021</date>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2021-06">2021</date>
 		</imprint>
 	</monogr>
 	<note type="report_type">arXiv preprint</note>
@@ -793,8 +831,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,186.15,374.42,8.64;10,129.58,196.88,374.42,8.82;10,129.58,207.79,100.17,8.82" xml:id="b18">
-	<monogr>
-		<title level="m" type="main" coord="10,428.72,186.15,75.28,8.64;10,129.58,197.06,299.77,8.64">Triviaqa: A large scale distantly supervised challenge dataset for reading comprehension</title>
+	<analytic>
+		<title level="a" type="main" coord="10,428.72,186.15,75.28,8.64;10,129.58,197.06,299.77,8.64">TriviaQA: A Large Scale Distantly Supervised Challenge Dataset for Reading Comprehension</title>
 		<author>
 			<persName coords=""><forename type="first">Mandar</forename><surname>Joshi</surname></persName>
 		</author>
@@ -807,8 +845,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Luke</forename><surname>Zettlemoyer</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/p17-1147</idno>
 		<idno type="arXiv">arXiv:1705.03551</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</title>
+		<meeting>the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2017">2017</date>
 		</imprint>
 	</monogr>
@@ -817,7 +861,7 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 
 <biblStruct coords="10,129.58,223.04,374.42,8.64;10,129.22,233.95,374.77,8.64;10,129.58,244.68,374.42,8.82;10,129.30,255.59,136.16,8.82" xml:id="b19">
 	<analytic>
-		<title level="a" type="main" coord="10,425.52,233.95,78.48,8.64;10,129.58,244.85,169.05,8.64">Natural questions: a benchmark for question answering research</title>
+		<title level="a" type="main" coord="10,425.52,233.95,78.48,8.64;10,129.58,244.85,169.05,8.64">Natural Questions: A Benchmark for Question Answering Research</title>
 		<author>
 			<persName coords=""><forename type="first">Tom</forename><surname>Kwiatkowski</surname></persName>
 		</author>
@@ -848,12 +892,41 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Kenton</forename><surname>Lee</surname></persName>
 		</author>
+		<author>
+			<persName><forename type="first">Kristina</forename><surname>Toutanova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Llion</forename><surname>Jones</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthew</forename><surname>Kelcey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ming-Wei</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andrew</forename><forename type="middle">M</forename><surname>Dai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jakob</forename><surname>Uszkoreit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Quoc</forename><surname>Le</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Slav</forename><surname>Petrov</surname></persName>
+		</author>
+		<idno type="DOI">10.1162/tacl_a_00276</idno>
 	</analytic>
 	<monogr>
 		<title level="j" coord="10,306.13,244.68,197.87,8.59;10,129.30,255.59,42.37,8.59">Transactions of the Association for Computational Linguistics</title>
+		<title level="j" type="abbrev">Transactions of the Association for Computational Linguistics</title>
+		<idno type="ISSNe">2307-387X</idno>
 		<imprint>
+			<biblScope unit="volume">7</biblScope>
 			<biblScope unit="page" from="453" to="466" />
-			<date type="published" when="2019">2019</date>
+			<date type="published" when="2019-11">2019</date>
+			<publisher>MIT Press - Journals</publisher>
 		</imprint>
 	</monogr>
 </biblStruct>
@@ -897,8 +970,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,307.73,374.42,8.64;10,129.58,318.46,375.67,8.82;10,129.58,329.54,22.42,8.64" xml:id="b21">
-	<monogr>
-		<title level="m" type="main" coord="10,394.55,307.73,109.45,8.64;10,129.58,318.63,234.56,8.64">Can a suit of armor conduct electricity? a new dataset for open book question answering</title>
+	<analytic>
+		<title level="a" type="main" coord="10,394.55,307.73,109.45,8.64;10,129.58,318.63,234.56,8.64">Can a Suit of Armor Conduct Electricity? A New Dataset for Open Book Question Answering</title>
 		<author>
 			<persName coords=""><forename type="first">Todor</forename><surname>Mihaylov</surname></persName>
 		</author>
@@ -911,8 +984,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Ashish</forename><surname>Sabharwal</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/d18-1260</idno>
 		<idno type="arXiv">arXiv:1809.02789</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing</title>
+		<meeting>the 2018 Conference on Empirical Methods in Natural Language Processing</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2018">2018</date>
 		</imprint>
 	</monogr>
@@ -920,25 +999,32 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,344.62,374.42,8.64;10,129.58,355.35,257.51,8.82" xml:id="b22">
-	<monogr>
-		<title level="m" type="main" coord="10,299.91,344.62,204.09,8.64;10,129.58,355.52,90.28,8.64">Landmark attention: Random-access infinite context length for transformers</title>
+	<analytic>
+		<title level="a" type="main" coord="10,299.91,344.62,204.09,8.64;10,129.58,355.52,90.28,8.64">Preprint repository arXiv achieves milestone million uploads</title>
 		<author>
 			<persName coords=""><forename type="first">Amirkeivan</forename><surname>Mohtashami</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Martin</forename><surname>Jaggi</surname></persName>
 		</author>
+		<idno type="DOI">10.1063/pt.5.028530</idno>
 		<idno type="arXiv">arXiv:2305.16300</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Today</title>
+		<title level="j" type="abbrev">Phys. Today</title>
+		<idno type="ISSNe">1945-0699</idno>
 		<imprint>
 			<date type="published" when="2023">2023</date>
+			<publisher>AIP Publishing</publisher>
 		</imprint>
 	</monogr>
 	<note type="report_type">arXiv preprint</note>
 </biblStruct>
 
 <biblStruct coords="10,129.58,370.60,376.07,8.64;10,129.58,381.51,374.42,8.64;10,129.58,392.24,206.60,8.82" xml:id="b23">
-	<monogr>
-		<title level="m" type="main" coord="10,312.90,381.51,191.10,8.64;10,129.58,392.41,39.09,8.64">Bbq: A hand-built bias benchmark for question answering</title>
+	<analytic>
+		<title level="a" type="main" coord="10,312.90,381.51,191.10,8.64;10,129.58,392.41,39.09,8.64">BBQ: A hand-built bias benchmark for question answering</title>
 		<author>
 			<persName coords=""><forename type="first">Alicia</forename><surname>Parrish</surname></persName>
 		</author>
@@ -958,13 +1044,18 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 			<persName coords=""><forename type="first">Jana</forename><surname>Thompson</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Phu</forename><surname>Mon Htut</surname></persName>
+			<persName><forename type="first">Phu</forename><forename type="middle">Mon</forename><surname>Htut</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><surname>Samuel R Bowman</surname></persName>
+			<persName><forename type="first">Samuel</forename><surname>Bowman</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/2022.findings-acl.165</idno>
 		<idno type="arXiv">arXiv:2110.08193</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Findings of the Association for Computational Linguistics: ACL 2022</title>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2021">2021</date>
 		</imprint>
 	</monogr>
@@ -1002,35 +1093,39 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 
 <biblStruct coords="10,129.58,444.38,374.42,8.64;10,129.58,455.11,375.66,8.82;10,129.58,466.19,22.42,8.64" xml:id="b25">
 	<analytic>
-		<title level="a" type="main" coord="10,436.17,444.38,67.83,8.64;10,129.58,455.29,188.89,8.64">Winogrande: An adversarial winograd schema challenge at scale</title>
+		<title level="a" type="main" coord="10,436.17,444.38,67.83,8.64;10,129.58,455.29,188.89,8.64">WinoGrande</title>
 		<author>
 			<persName coords=""><forename type="first">Keisuke</forename><surname>Sakaguchi</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Le</forename><surname>Ronan</surname></persName>
+			<persName><forename type="first">Ronan</forename><forename type="middle">Le</forename><surname>Bras</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Chandra</forename><surname>Bras</surname></persName>
+			<persName><forename type="first">Chandra</forename><surname>Bhagavatula</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Yejin</forename><surname>Bhagavatula</surname></persName>
+			<persName coords=""><forename type="first">Yejin</forename><surname>Choi</surname></persName>
 		</author>
-		<author>
-			<persName coords=""><surname>Choi</surname></persName>
-		</author>
+		<idno type="DOI">10.1145/3474381</idno>
 	</analytic>
 	<monogr>
 		<title level="j" coord="10,325.79,455.11,113.14,8.59">Communications of the ACM</title>
+		<title level="j" type="abbrev">Commun. ACM</title>
+		<idno type="ISSN">0001-0782</idno>
+		<idno type="ISSNe">1557-7317</idno>
 		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="issue">9</biblScope>
 			<biblScope unit="page" from="99" to="106" />
-			<date type="published" when="2021">2021</date>
+			<date type="published" when="2021-08-24">2021</date>
+			<publisher>Association for Computing Machinery (ACM)</publisher>
 		</imprint>
 	</monogr>
 </biblStruct>
 
 <biblStruct coords="10,129.58,481.27,376.07,8.64;10,129.58,492.00,345.51,8.82" xml:id="b26">
-	<monogr>
-		<title level="m" type="main" coord="10,439.52,481.27,66.13,8.64;10,129.58,492.18,178.58,8.64">Socialiqa: Commonsense reasoning about social interactions</title>
+	<analytic>
+		<title level="a" type="main" coord="10,439.52,481.27,66.13,8.64;10,129.58,492.18,178.58,8.64">Social IQa: Commonsense Reasoning about Social Interactions</title>
 		<author>
 			<persName coords=""><forename type="first">Maarten</forename><surname>Sap</surname></persName>
 		</author>
@@ -1041,13 +1136,19 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 			<persName coords=""><forename type="first">Derek</forename><surname>Chen</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Ronan</forename><surname>Lebras</surname></persName>
+			<persName><forename type="first">Ronan</forename><surname>Le Bras</surname></persName>
 		</author>
 		<author>
 			<persName coords=""><forename type="first">Yejin</forename><surname>Choi</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/d19-1454</idno>
 		<idno type="arXiv">arXiv:1904.09728</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</title>
+		<meeting>the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2019">2019</date>
 		</imprint>
 	</monogr>
@@ -1087,8 +1188,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,544.14,374.42,8.64;10,129.58,555.05,376.16,8.64;10,129.58,565.78,374.42,8.82;10,129.58,576.68,100.17,8.82" xml:id="b28">
-	<monogr>
-		<title level="m" type="main" coord="10,129.58,565.95,305.39,8.64">Challenging big-bench tasks and whether chain-of-thought can solve them</title>
+	<analytic>
+		<title level="a" type="main" coord="10,129.58,565.95,305.39,8.64">Challenging BIG-Bench Tasks and Whether Chain-of-Thought Can Solve Them</title>
 		<author>
 			<persName coords=""><forename type="first">Mirac</forename><surname>Suzgun</surname></persName>
 		</author>
@@ -1111,22 +1212,24 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 			<persName coords=""><forename type="first">Aakanksha</forename><surname>Chowdhery</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">V</forename><surname>Quoc</surname></persName>
+			<persName><forename type="first">Quoc</forename><surname>Le</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Ed</forename><forename type="middle">H</forename><surname>Le</surname></persName>
+			<persName><forename type="first">Ed</forename><surname>Chi</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Denny</forename><surname>Chi</surname></persName>
+			<persName><forename type="first">Denny</forename><surname>Zhou</surname></persName>
 		</author>
 		<author>
-			<persName coords=""><forename type="first">Jason</forename><surname>Zhou</surname></persName>
+			<persName coords=""><forename type="first">Jason</forename><surname>Wei</surname></persName>
 		</author>
-		<author>
-			<persName coords=""><surname>Wei</surname></persName>
-		</author>
+		<idno type="DOI">10.18653/v1/2023.findings-acl.824</idno>
 		<idno type="arXiv">arXiv:2210.09261</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Findings of the Association for Computational Linguistics: ACL 2023</title>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2022">2022</date>
 		</imprint>
 	</monogr>
@@ -1134,8 +1237,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,591.94,376.07,8.64;10,129.58,602.67,375.67,8.82;10,129.58,613.75,22.42,8.64" xml:id="b29">
-	<monogr>
-		<title level="m" type="main" coord="10,403.04,591.94,102.61,8.64;10,129.58,602.84,235.53,8.64">Commonsenseqa: A question answering challenge targeting commonsense knowledge</title>
+	<analytic>
+		<title level="a" type="main" coord="10,403.04,591.94,102.61,8.64;10,129.58,602.84,235.53,8.64"></title>
 		<author>
 			<persName coords=""><forename type="first">Alon</forename><surname>Talmor</surname></persName>
 		</author>
@@ -1148,8 +1251,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Jonathan</forename><surname>Berant</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/n19-1421</idno>
 		<idno type="arXiv">arXiv:1811.00937</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2019 Conference of the North</title>
+		<meeting>the 2019 Conference of the North</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2018">2018</date>
 		</imprint>
 	</monogr>
@@ -1194,7 +1303,8 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 </biblStruct>
 
 <biblStruct coords="10,129.58,665.72,374.42,8.64;10,129.58,676.45,309.30,8.82" xml:id="b31">
-	<monogr>
+	<analytic>
+		<title level="a" type="main">HellaSwag: Can a Machine Really Finish Your Sentence?</title>
 		<author>
 			<persName coords=""><forename type="first">Rowan</forename><surname>Zellers</surname></persName>
 		</author>
@@ -1210,9 +1320,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		<author>
 			<persName coords=""><forename type="first">Yejin</forename><surname>Choi</surname></persName>
 		</author>
+		<idno type="DOI">10.18653/v1/p19-1472</idno>
 		<idno type="arXiv">arXiv:1905.07830</idno>
-		<title level="m" coord="10,432.12,665.72,71.88,8.64;10,129.58,676.62,145.53,8.64">Hellaswag: Can a machine really finish your sentence?</title>
+	</analytic>
+	<monogr>
+		<title level="m" coord="10,432.12,665.72,71.88,8.64;10,129.58,676.62,145.53,8.64">Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics</title>
+		<meeting>the 57th Annual Meeting of the Association for Computational Linguistics</meeting>
 		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
 			<date type="published" when="2019">2019</date>
 		</imprint>
 	</monogr>

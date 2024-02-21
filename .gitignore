@@ -1,0 +1,6 @@
+output/imagenes/*
+output/papers/*
+env_3.11/*
+.conda/
+Dockerfile
+*.sh
