@@ -1,15 +1,11 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
-
 cff-version: 1.2.0
-title: Grobid case use with python
-message: >-
-  If you use this software, please cite it using the
-  metadata from this file.
-type: software
+message: "If you use this software, please cite it as below."
 authors:
-  - given-names: Rodrigo
-    family-names: Rodrigo Durán Andrés
-    orcid: 'https://orcid.org/0009-0001-1866-8135'
-license: MIT
-date-released: '2024-03-05'
+- family-names: "Rodrigo"
+  given-names: "RodrigoDuranAndres"
+  orcid: "https://orcid.org/0009-0001-1866-8135"
+title: "Open Source Trial"
+version: 0.0.2
+doi: 10.5281/zenodo.10654759
+date-released: 2024-02-13
+url: "https://github.com/RodrigoDuranAndres/open_science/tree/tag-prueba" 
