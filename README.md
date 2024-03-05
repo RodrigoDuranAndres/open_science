@@ -1,5 +1,10 @@
 # open_science
-Creado para hacer las entregas de la asignatura Open_science_and_AI_2024
+
+Este codigo relaliza un analisis de los pdfs en la carpeta paepers gracias a grobid.
+El resultado de dicho analisis se pasa ha output, da un xml cunado funiona correctamente y un txt cuando no.
+
+De cada xml, se hace un wordcloud de la introducción y un listado delas urls escritas en el.
+Tambien se hace un histograma con la cantidad de figuras en cada paper.
 
 # Enlances de los papers
 
@@ -16,7 +21,32 @@ Creado para hacer las entregas de la asignatura Open_science_and_AI_2024
 |mistral                                                    |  [Link](https://arxiv.org/pdf/2401.04088.pdf)  |
 |NIPS-2017-attention-is-all-you-need-Paper                  |  [Link](https://arxiv.org/pdf/1706.03762.pdf)  |
 
-# Codigo
+## Para Ejecutarse
 
-Este repssitorio contiene un caso de uso de grobid para el analisis de pdfs.
-En rationale.md se especifica que hace el codigo.
+Tines que tener python 3.11 (o más) y  un container de la imagen de grobid/grobid
+intruciones: https://grobid.readthedocs.io/en/latest/Grobid-docker/
+Exponerlo en el puerto predeterminado (8070)
+
+Luego ejecutarlo con el comando:
+```bash
+docker run --rm --init --ulimit core=0 -p 8070:8070 grobid/grobid:0.8.0
+```
+
+Para instalar la libreria grobid sigua las instuciones (ya hemos clonado el github de [git clone https://github.com/kermitt2/grobid_client_python], por tanto, estando en la misma carpeta del github):
+```bash
+py .\grobid_client_python\setup.py install
+```
+Source: https://github.com/kermitt2/grobid_client_python/tree/master
+
+
+Para el resto de librerias instalar requiremets:
+```bash
+pip install -r requirements.txt
+```
+
+Elminar los ficheros contenidos en la carpeta ouput, para que se sobreescriban con tu resultado.
+
+Posteriormente ejecutar main:
+py main.py
+
+Tambien tienes la opción de hacerlo mismo que el main.py con el cuaderno analisis_papers.ipynb, si lo prefiere.
